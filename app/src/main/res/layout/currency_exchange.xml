@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/table_background">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/gamescreen_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_button_text"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/grey"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/currency_exchange_header"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/bank_amount_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bank_amount_textview"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textSize="35sp"
+        android:layout_marginTop="100dp"/>
+
+
+    <RadioButton
+        android:id="@+id/dollar_2_euro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dollar_euro"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"/>
+
+    <RadioButton
+        android:id="@+id/euro_2_dollar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/euro_dollar"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"/>
+
+    <Button
+        android:id="@+id/confirm_currency_exchange"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/confirm_exchange_text"
+        android:backgroundTint="@color/grey"/>
+</LinearLayout>
+
+</RelativeLayout>

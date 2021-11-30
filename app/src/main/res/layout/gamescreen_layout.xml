@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/table_background">
+    <LinearLayout
+        android:id="@+id/gamescreen_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:backgroundTint="@color/grey"
+            android:id="@+id/gamescreen_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_button_text"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/bank_amount_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:text="@string/bank_amount_textview"
+            android:textSize="20sp"
+            android:layout_marginEnd="40dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gamescreen_header_layout">
+        <TextView
+            android:id="@+id/dealer_total_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dealer_hand_total"
+            android:textColor="@color/white"
+            android:gravity="end"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="40dp"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/card_linear_layout"
+        android:layout_below="@id/gamescreen_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="100dp"
+            android:src="@drawable/c1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="100dp"
+            android:src="@drawable/c1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_linear_layout">
+        <TextView
+            android:id="@+id/user_total_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dealer_hand_total"
+            android:textColor="@color/white"
+            android:gravity="end"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="40dp"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/card_linear_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_linear_layout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/c1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/c1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/seekbar_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_linear_layout_2"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/seek_bar_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/seekbar_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <SeekBar
+            android:id="@+id/bet_amount_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="25"
+            android:progressBackgroundTint="@color/white" />
+        <Button
+            android:backgroundTint="@color/grey"
+            android:id="@+id/deal_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/deal_button" />
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekbar_linear_layout">
+
+        <Button
+            android:id="@+id/stand_button"
+            android:backgroundTint="@color/grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/stand"/>
+        <Button
+            android:id="@+id/double_button"
+            android:backgroundTint="@color/grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="6dp"
+            android:text="@string/double_text"/>
+            <Button
+                android:id="@+id/hit_button"
+                android:backgroundTint="@color/grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/hit"/>
+            <Button
+                android:id="@+id/split_button"
+                android:backgroundTint="@color/grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/split"/>
+    </LinearLayout>
+
+</RelativeLayout>

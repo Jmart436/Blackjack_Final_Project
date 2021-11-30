@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Blackjack_Final_Project</string>
     <string name="home_screen_header">Blackjack Mobile Game</string>
+    <string name="bank_amount_textview">Bank: </string>
+    <string name="bank_amount_edit_text_hint">Enter $ into your Bank</string>
+    <string name="currency_conversion_button_text">Currency Exchange</string>
+    <string name="game_rules_button_text">Game Rules</string>
+    <string name="back_button_text">← Back</string>
+    <string name="seekbar_text">Place Your Bet</string>
+    <string name="deal_button">Deal</string>
+    <string name="dealer_hand_total">Total: </string>
+    <string name="user_hand_total">Total: </string>
+    <string name="stand">Stand</string>
+    <string name="double_text">Double</string>
+    <string name="hit">Hit</string>
+    <string name="split">Split</string>
+    <string name="currency_exchange_header">Currency Exchange</string>
+    <string name="dollar_euro">$ -> €</string>
+    <string name="euro_dollar">€ -> $</string>
+    <string name="confirm_exchange_text">Confirm Exchange</string>
 </resources>
