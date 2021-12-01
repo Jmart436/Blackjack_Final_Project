@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public String bankAmountEntryString = "";
     public int bankAmountInt = 0;
     public int bankAmountTotalInt = 0;
-    public String bankAmountTotalString;
+    public static String bankAmountTotalString;
 
 
     @Override
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.currency_exchange);
             }// end on click
         }); // end override
-
 
 
 }// end on create
