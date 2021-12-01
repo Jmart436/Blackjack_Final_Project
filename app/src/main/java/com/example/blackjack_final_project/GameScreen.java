@@ -42,7 +42,8 @@ public class GameScreen extends AppCompatActivity {
         });
 
         TextView bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
-        bankAmountTextView.setText("Bank : " + bankAmountTotalString);
+        bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+
     }// end on click
 
     public OnSeekBarChangeListener betSeekbarListener = new OnSeekBarChangeListener() {

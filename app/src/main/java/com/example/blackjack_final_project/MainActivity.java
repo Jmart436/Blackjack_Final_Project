@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 bankAmountTotalString = String.valueOf(bankAmountTotalInt);// use this for total calcs
                 bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
 
-
                 // Hides Keyboard after user clicks check
                 try {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
@@ -84,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         currencyConversionButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {// on click of play button
-                Intent intent = new Intent(MainActivity.this, CurrencyExchange.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(MainActivity.this, CurrencyExchange.class);
+                startActivity(intent1);
                 setContentView(R.layout.currency_exchange);
 
             }// end on click
