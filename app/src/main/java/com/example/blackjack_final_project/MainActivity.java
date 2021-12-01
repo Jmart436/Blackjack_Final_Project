@@ -20,12 +20,14 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     // initialize all variables
-    public TextView bankAmount;
+    public TextView bankAmountTextView;
     public EditText bankAmountEditText;
     public ImageButton submitBankAmount;
     public Button currencyConversionButton;
     public Button gameRulesButton;
     public Button playButton;
+    public String bankAmountTotalString = "0";
+    public int bankAmountInt = 0;
 
 
     @Override
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // import all buttons and views to variables
-        bankAmount = (TextView) findViewById(R.id.bank_amount_textview);
+        bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
         bankAmountEditText = (EditText) findViewById(R.id.bank_amount_edittext);
         submitBankAmount = (ImageButton) findViewById(R.id.submit_bank_amount_button);
         currencyConversionButton = (Button) findViewById(R.id.currency_conversion_button);
@@ -43,9 +45,22 @@ public class MainActivity extends AppCompatActivity {
         submitBankAmount.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  bankAmount = bankAmountEditText.getText().toString();
-            }
-        });
+              bankAmountTotalString = bankAmountEditText.getText().toString();
+              bankAmountTotalString += bankAmountInt;
+              bankAmountInt = Integer.parseInt(bankAmountTotalString);
+
+              bankAmountTextView.setText("Bank : $" + bankAmountInt);
+
+            }// end on click
+        });// end override
+        playButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GameScreen.class);
+                startActivity(intent);
+                setContentView(R.layout.gamescreen_layout);
+            }// end on click
+        }); // end over ride
 
 
 
