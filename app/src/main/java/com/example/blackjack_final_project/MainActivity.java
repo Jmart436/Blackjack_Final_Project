@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.text.Editable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -57,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 bankAmountTotalInt = bankAmountTotalInt + bankAmountInt;
                 bankAmountTotalString = String.valueOf(bankAmountTotalInt);// use this for total calcs
                 bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+
+
+                // Hides Keyboard after user clicks check
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
 
             }// end on click
         });// end override

@@ -65,31 +65,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_text_layout"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/play_button"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
             android:layout_gravity="center"
-            android:text="@string/play_button"
-            android:backgroundTint="@color/grey"/>
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/play_button" />
 
         <Button
             android:id="@+id/currency_conversion_button"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="@color/grey"
             android:gravity="center"
-            android:text="@string/currency_conversion_button_text"
-            android:backgroundTint="@color/grey"/>
+            android:text="@string/currency_conversion_button_text" />
 
         <Button
             android:id="@+id/game_rules_button"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/game_rules_button_text"
-            android:backgroundTint="@color/grey"/>
+            android:backgroundTint="@color/grey"
+            android:text="@string/game_rules_button_text" />
 
     </LinearLayout>
 
