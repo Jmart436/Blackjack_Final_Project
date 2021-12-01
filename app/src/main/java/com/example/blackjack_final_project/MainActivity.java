@@ -74,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {// on click of play button
                 Intent intent = new Intent(MainActivity.this, GameScreen.class);
-                startActivity(intent);
+
                 setContentView(R.layout.gamescreen_layout);
+                intent.putExtra("bank_amount", bankAmountTotalInt);
+                startActivity(intent);
             }// end on click
         }); // end override
 
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, CurrencyExchange.class);
                 startActivity(intent);
                 setContentView(R.layout.currency_exchange);
+
             }// end on click
         }); // end override
 

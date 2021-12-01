@@ -11,10 +11,10 @@
 
         <Button
             android:backgroundTint="@color/grey"
-            android:id="@+id/gamescreen_back_button"
+            android:id="@+id/end_game_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/back_button_text"
+            android:text="@string/end_game_button_text"
             android:layout_marginStart="10dp"/>
         <TextView
             android:id="@+id/bank_amount_textview"
@@ -108,7 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/card_linear_layout_2"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical">
 
         <TextView
@@ -127,12 +127,13 @@
             android:max="100"
             android:progress="25"
             android:progressBackgroundTint="@color/white" />
+
         <Button
-            android:backgroundTint="@color/grey"
             android:id="@+id/deal_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="@color/grey"
             android:gravity="center"
             android:text="@string/deal_button" />
     </LinearLayout>
