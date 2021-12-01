@@ -62,13 +62,21 @@ public class MainActivity extends AppCompatActivity {
         });// end override
         playButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {// on click of play button
                 Intent intent = new Intent(MainActivity.this, GameScreen.class);
                 startActivity(intent);
                 setContentView(R.layout.gamescreen_layout);
             }// end on click
         }); // end override
 
+        currencyConversionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {// on click of play button
+                Intent intent = new Intent(MainActivity.this, CurrencyExchange.class);
+                startActivity(intent);
+                setContentView(R.layout.currency_exchange);
+            }// end on click
+        }); // end override
 
 
 

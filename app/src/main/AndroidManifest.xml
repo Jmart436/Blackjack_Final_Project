@@ -18,8 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameScreen"
+        <activity
+            android:name=".GameScreen"
             android:exported="true"/>
+        <activity
+            android:name=".CurrencyExchange"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
