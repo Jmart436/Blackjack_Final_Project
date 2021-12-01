@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 bankAmountEntryString = bankAmountEditText.getText().toString();
                 bankAmountInt = Integer.parseInt(bankAmountEntryString);
                 bankAmountTotalInt = bankAmountTotalInt + bankAmountInt;
-                bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+                bankAmountTotalString = String.valueOf(bankAmountTotalInt);// use this for total calcs
                 bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
 
             }// end on click
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 setContentView(R.layout.gamescreen_layout);
             }// end on click
-        }); // end over ride
+        }); // end override
 
 
 
