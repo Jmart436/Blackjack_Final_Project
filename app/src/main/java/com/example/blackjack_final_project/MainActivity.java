@@ -22,16 +22,12 @@ public class MainActivity extends AppCompatActivity {
     // initialize all variables
     public TextView bankAmountTextView;
     public EditText bankAmountEditText;
-
     public ImageButton submitBankAmount;
     public Button currencyConversionButton;
     public Button gameRulesButton;
     public Button playButton;
-
-    public String bankAmountEntryString = "";
+    public String bankAmountTotalString = "0";
     public int bankAmountInt = 0;
-    public int bankAmountTotalInt = 0;
-    public String bankAmountTotalString;
 
 
     @Override
@@ -41,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // import all buttons and views to variables
         bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
         bankAmountEditText = (EditText) findViewById(R.id.bank_amount_edittext);
-
         submitBankAmount = (ImageButton) findViewById(R.id.submit_bank_amount_button);
-
         currencyConversionButton = (Button) findViewById(R.id.currency_conversion_button);
         gameRulesButton = (Button) findViewById(R.id.game_rules_button);
         playButton = (Button) findViewById(R.id.play_button);
@@ -51,16 +45,14 @@ public class MainActivity extends AppCompatActivity {
         submitBankAmount.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Updated code
-                bankAmountEntryString = bankAmountEditText.getText().toString();
-                bankAmountInt = Integer.parseInt(bankAmountEntryString);
-                bankAmountTotalInt = bankAmountTotalInt + bankAmountInt;
-                bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-                bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+              bankAmountTotalString = bankAmountEditText.getText().toString();
+              bankAmountTotalString += bankAmountInt;
+              bankAmountInt = Integer.parseInt(bankAmountTotalString);
+
+              bankAmountTextView.setText("Bank : $" + bankAmountInt);
 
             }// end on click
         });// end override
-
         playButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
