@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/dealer_card_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,6 +57,7 @@
             android:layout_marginStart="100dp"
             android:src="@drawable/c1"/>
         <ImageView
+            android:id="@+id/dealer_card_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -87,6 +89,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/player_card_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
@@ -95,6 +98,7 @@
             android:src="@drawable/c1" />
 
         <ImageView
+            android:id="@+id/player_card_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
@@ -160,6 +164,7 @@
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
+            android:textSize="12sp"
             android:text="@string/stand"/>
         <Button
             android:id="@+id/double_button"
@@ -169,6 +174,7 @@
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="6dp"
+            android:textSize="12sp"
             android:text="@string/double_text"/>
             <Button
                 android:id="@+id/hit_button"
@@ -178,6 +184,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
+                android:textSize="12sp"
                 android:text="@string/hit"/>
             <Button
                 android:id="@+id/split_button"
@@ -187,6 +194,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
+                android:textSize="12sp"
                 android:text="@string/split"/>
     </LinearLayout>
 
