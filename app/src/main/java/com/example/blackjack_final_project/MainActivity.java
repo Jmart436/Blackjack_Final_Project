@@ -63,20 +63,30 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                } catch (Exception e) {
+                }//end try
+                catch (Exception e) {
                     // TODO: handle exception
-                }
+                }// end catch
 
             }// end on click
         });// end override
         playButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {// on click of play button
-                Intent intent = new Intent(MainActivity.this, GameScreen.class);
-
-                setContentView(R.layout.gamescreen_layout);
-                intent.putExtra("bank_amount", bankAmountTotalInt);
-                startActivity(intent);
+                // checks if the user has money in the bank
+                if (bankAmountTotalInt == 0) {
+                    Context context = getApplicationContext();
+                    int duration = Toast.LENGTH_SHORT; // sets length for toast
+                    Toast toast = Toast.makeText(context, "Please add funds to your bank!", duration); //sets content for toast
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
+                    toast.show();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, GameScreen.class);
+                    setContentView(R.layout.gamescreen_layout);
+                    intent.putExtra("bank_amount", bankAmountTotalInt);
+                    startActivity(intent);
+                }
             }// end on click
         }); // end override
 
