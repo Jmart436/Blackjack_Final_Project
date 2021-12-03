@@ -6,20 +6,22 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class splashscreen_test {
-    /*public class MainActivity extends AppCompatActivity {
-        private static int Splash_time_out = 4000;
-        @Override
+
+
+public class Splash extends AppCompatActivity {
+    private static int splashTimeOut = 4000;
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            new Handler().postDelayed(new Runnable() {
-                @Override
+            setContentView(R.layout.blackjacksplash);
+
+        new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+                    Intent homeIntent = new Intent(Splash.this, MainActivity.class);
+                    setContentView(R.layout.activity_main);
                     startActivity(homeIntent);
                     finish();
                 }
-            },Splash_time_out);
+            }, splashTimeOut);
         }
-    */}
+    }
