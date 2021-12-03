@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.text.Editable;
 import android.view.Gravity;
 import android.view.View;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public int bankAmountInt = 0;
     public int bankAmountTotalInt = 0;
     public static String bankAmountTotalString;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
