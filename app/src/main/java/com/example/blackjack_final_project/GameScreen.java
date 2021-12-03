@@ -225,7 +225,6 @@ public class GameScreen extends AppCompatActivity {
         playerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
     }// end deal cards P2
 
-
     public void updateBet(){// updates current bet amount
        betTextView.setText("Bet: " + String.valueOf(customBet));
     }
