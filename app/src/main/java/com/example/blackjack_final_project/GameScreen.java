@@ -79,6 +79,9 @@ public class GameScreen extends AppCompatActivity {
                 playCounter += 1; // adds one to play counter
                 dealCardsP1(); // calls deal cards player card 1
                 dealCardsP2(); // calls deal cards player card 2
+                if (playerCard2 == playerCard1){
+                    dealCardsP2();
+                }
                 dealCardD1(); //calls deal cards dealer card 2
                 updatePlayerTotal(); // updates player totals
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
@@ -132,8 +135,8 @@ public class GameScreen extends AppCompatActivity {
         dealerCard2.setImageResource(R.drawable.cardback); // sets dealer card to the back of the card
         Random randomSuit = new Random();
         Random randomValue = new Random();
-        cardSuit = 1 + randomSuit.nextInt(5 - 1);
-        cardValue = 1 + randomValue.nextInt(14 - 1);
+        cardSuit = 1 + randomSuit.nextInt(4);
+        cardValue = 1 + randomValue.nextInt(13);
         switch (cardSuit) {
             case 1:
                 suitConversion = "c";
