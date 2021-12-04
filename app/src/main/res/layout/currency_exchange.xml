@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/currency_exchange_back_button"
             android:layout_width="wrap_content"
@@ -30,30 +31,11 @@
             android:id="@+id/bank_amount_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="30dp"
             android:text="@string/bank_amount_textview"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="35sp" />
-
-        <RadioButton
-            android:id="@+id/dollar_2_euro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="100dp"
-            android:text="@string/dollar_euro"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <RadioButton
-            android:id="@+id/euro_2_dollar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="100dp"
-            android:text="@string/euro_dollar"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
 
         <Button
             android:id="@+id/confirm_currency_exchange"

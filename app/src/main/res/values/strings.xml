@@ -17,7 +17,7 @@
     <string name="currency_exchange_header">Currency Exchange</string>
     <string name="dollar_euro">$ -> €</string>
     <string name="euro_dollar">€ -> $</string>
-    <string name="confirm_exchange_text">Confirm Exchange</string>
+    <string name="confirm_exchange_text">Convert</string>
     <string name="play_button">Play</string>
     <string name="end_game_button_text">← End Game</string>
     <string name="bet_text">Bet: </string>

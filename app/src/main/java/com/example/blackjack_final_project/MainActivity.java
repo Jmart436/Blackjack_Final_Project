@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String bankAmountEntryString = "";
     public int bankAmountInt = 0;
-    public int bankAmountTotalInt = 0;
+    public static int bankAmountTotalInt = 0;
     public static String bankAmountTotalString;
+
+    public boolean dollarStatus = CurrencyExchange.dollarStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,17 @@ public class MainActivity extends AppCompatActivity {
         currencyConversionButton = (Button) findViewById(R.id.currency_conversion_button);
         gameRulesButton = (Button) findViewById(R.id.game_rules_button);
         playButton = (Button) findViewById(R.id.play_button);
+
+        // bankAmountTotalString is null at beginning, so set value to 0
+        if(bankAmountTotalString == null) {
+            bankAmountTotalString = "0";
+        }
+
+        // If converted to Euros
+        if(dollarStatus == false){
+            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+        }
+        bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
 
         submitBankAmount.setOnClickListener(new OnClickListener() {
             @Override
