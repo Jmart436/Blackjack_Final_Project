@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     public String bankAmountEntryString = "";
     public int bankAmountInt = 0;
-    public static int bankAmountTotalInt = 0;
+    //public static int bankAmountTotalInt = 0;
+    public int bankAmountTotalInt = GameScreen.bankAmountTotalInt;
     public static String bankAmountTotalString;
 
     public boolean dollarStatus = CurrencyExchange.dollarStatus;

@@ -1,16 +1,22 @@
 package com.example.blackjack_final_project;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar; // for changing custom tip percentages
 import android.widget.SeekBar.OnSeekBarChangeListener; // seekbar listener
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.Random;
 
@@ -45,6 +51,7 @@ public class GameScreen extends AppCompatActivity {
     public TextView playerTotal; // display of player total on screen
     public TextView betTextView; // display current bet above seekbar
     public TextView seekBarTextView;
+    public TextView bankAmountTextView;
     public Button doubleButton; // double button
     public Button hitButton; // hit button
     public Button endGameButton; // end game button
@@ -52,7 +59,7 @@ public class GameScreen extends AppCompatActivity {
     public Button standButton; // stand button
     public SeekBar betSeekbar; // seekbar
     public String bankAmountTotalString = MainActivity.bankAmountTotalString;
-    public double customBet; // current bet total used for calculations
+    public int customBet; // current bet total used for calculations
     public ImageView dealerCard1;
     public ImageView dealerCard2;
     public ImageView dealerCard3;
@@ -61,11 +68,13 @@ public class GameScreen extends AppCompatActivity {
     public ImageView playerCard2;
     public ImageView playerCard3;
     public ImageView playerCard4;
+    public ImageView cardBack;
 
+    public static int bankAmountTotalInt;// = MainActivity.bankAmountTotalInt;
     public int dealerCardCounter;
     public int playerCardCounter;
 
-
+    public int hitButtonClickCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +84,7 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal = (TextView) findViewById(R.id.dealer_total_textview);
         playerTotal = (TextView) findViewById(R.id.user_total_textview);
         betTextView = (TextView) findViewById(R.id.bet_textview);
+        bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
         seekBarTextView = (TextView) findViewById(R.id.seek_bar_textview);
         endGameButton = (Button) findViewById(R.id.end_game_button);
         dealButton = (Button) findViewById(R.id.deal_button);
@@ -95,19 +105,15 @@ public class GameScreen extends AppCompatActivity {
 
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
 
-
-
-
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 playCounter += 1; // adds one to play counter
                 dealCardsP1(); // calls deal cards player card 1
                 dealCardsP2(); // calls deal cards player card 2
                 if (playerCard2 == playerCard1){
                     dealCardsP2();
-                }
+                }// cards cannot equal
                 dealCardD1(); //calls deal cards dealer card 2
                 updatePlayerTotal(); // updates player totals
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
@@ -120,10 +126,9 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dealCardsD2();
-                if (dealerTotalInt < 17){
-                    dealCardsP3();
-                }
                 updatePlayerTotal();
+                dealersTurn();
+                endGameCheck();
             }// end on click
         });
 
@@ -142,20 +147,24 @@ public class GameScreen extends AppCompatActivity {
                     updateBet();
                     dealCardsP3();
                     updatePlayerTotal();
+                    endGameCheck();
                 }// end else
             } // end on click double
         });// end Override
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (playerCardCounter){
-                    case 2:
+                hitButtonClickCounter +=1;
+                switch (hitButtonClickCounter){
+                    case 1:
                         dealCardsP3();
                         updatePlayerTotal();
+                        endGameCheck();
                         break;
-                    case 3:
+                    case 2:
                         dealCardsP4();
                         updatePlayerTotal();
+                        endGameCheck();
                         break;
                 }// end switch
             }// end onclick Hit
@@ -164,6 +173,7 @@ public class GameScreen extends AppCompatActivity {
         endGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                endGame();
                 Intent intent = new Intent(GameScreen.this, MainActivity.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_main);
@@ -187,25 +197,68 @@ public class GameScreen extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
-    public void endGameCheck(){
+    public void endGameCheck()  {
         if (playerTotalInt == 21) {
+            // says blackjack if you get 21
+            ImageView winDisplay = new ImageView(getApplicationContext());
+            winDisplay.setImageResource(R.drawable.win);
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(winDisplay);
+            toast.show();
+            // add delay
+            gameDone();
             // display win message
-
         }// end if win
-        if (playerTotalInt > dealerTotalInt && playerTotalInt <= 21) {
-            //win
+        if (dealerTotalInt == 21){
+            // lose
+            ImageView loseDisplay = new ImageView(getApplicationContext());
+            loseDisplay.setImageResource(R.drawable.lose); //  TODO: CHANGE THIS PICTURE
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(loseDisplay);
+            toast.show();
+            bankAmountTotalInt = bankAmountTotalInt - customBet;
+            bankAmountTextView.setText("Bank: $" + bankAmountTotalInt);
 
+        }// end if lose
+        if (playerTotalInt > dealerTotalInt && playerTotalInt <= 21) {
+            // win
+            ImageView winDisplay = new ImageView(getApplicationContext());
+            winDisplay.setImageResource(R.drawable.youwin); //  TODO: CHANGE THIS PICTURE
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(winDisplay);
+            toast.show();
         }// end if win
         if (dealerTotalInt > playerTotalInt && dealerTotalInt <= 21) {
-            // display lose message
+            //lose
+            ImageView loseDisplay = new ImageView(getApplicationContext());
+            loseDisplay.setImageResource(R.drawable.lose); //  TODO: CHANGE THIS PICTURE
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(loseDisplay);
+            toast.show();
+            bankAmountTotalInt = bankAmountTotalInt - customBet;
+            bankAmountTextView.setText("Bank: $" + bankAmountTotalInt);
+
         }// end if lose
         if (dealerTotalInt > 21) {
-            // win
-        }
-        if (playerTotalInt > 21) {
-            // display lose message
-        }
+            //win
+            ImageView winDisplay = new ImageView(getApplicationContext());
+            winDisplay.setImageResource(R.drawable.youwin); //  TODO: CHANGE THIS PICTURE
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(winDisplay);
+            toast.show();
+        }// end if win
+
+        // probally remove this
+        updatePlayerTotal();
     }// end endGameCheck
+
+
+
     //method to deal cards
     public void dealCardD1() {
         // dealer card 1
@@ -329,8 +382,33 @@ public class GameScreen extends AppCompatActivity {
                 suitConversion = "s";
                 break;
         }// end switch
+        /* animates cards
+        final ObjectAnimator card1 = ObjectAnimator.ofFloat(R.drawable.cardback, "card_flip", 1f, 0f);
+        card1.setInterpolator(new DecelerateInterpolator());
+        final ObjectAnimator card2 = ObjectAnimator.ofFloat(playerCard1, "scaleX", 0f, 1f);
+        card2.setInterpolator(new AccelerateDecelerateInterpolator());
+        card1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                playerCard1.setImageResource(R.drawable.cardback);
+            }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                playerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
+                card2.setDuration(500);
+                card2.start();
+            }// end on animation end
+        });
+        card1.setDuration(500);
+
+        card1.start();
+
+         */
         changeThisName = suitConversion + cardValueP1; // creates a string to access image resouce file
-        playerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
+        playerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
+
     }// end deal P1
 
     public void dealCardsP2() {
@@ -407,7 +485,7 @@ public class GameScreen extends AppCompatActivity {
     }// end deal cards P4
 
     public void updateBet(){// updates current bet amount
-       betTextView.setText("Bet: " + String.valueOf(customBet));
+       betTextView.setText("Bet: " + String.valueOf(currencyFormat.format(customBet)));
     }
     public void updatePlayerTotal(){ // updates total of cards on the table
         switch (cardValueP1){
@@ -429,7 +507,7 @@ public class GameScreen extends AppCompatActivity {
             default:
         }// end switch
         playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4;
-        playerTotal.setText(String.valueOf(playerTotalInt));
+        playerTotal.setText("Total: " + String.valueOf(playerTotalInt));
         switch (cardValue){
             case 10:
             case 11:
@@ -449,7 +527,63 @@ public class GameScreen extends AppCompatActivity {
             default:
         }// end switch
         dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4 ;
-        dealerTotal.setText(String.valueOf(dealerTotalInt));
+        dealerTotal.setText("Total: " + String.valueOf(dealerTotalInt));
+        dealerTotal.setVisibility(View.VISIBLE);
+        playerTotal.setVisibility(View.VISIBLE);
     }// end updatePlayerTotal
+    public void endGame(){
+        playerCardCounter = 0;
+        dealerCardCounter = 0;
+    }
+    public void gameDone(){
+        playerCard1.setImageDrawable(null);
+        playerCard2.setImageDrawable(null);
+        playerCard3.setImageDrawable(null);
+        playerCard4.setImageDrawable(null);
+    }
+    public void dealersTurn(){
+        if (dealerTotalInt < 17) {
+                dealCardsD3();
+                updatePlayerTotal();
+                // end if less than 17
+        }
+        if (dealerCard3.isShown() && dealerTotalInt < 17){
+            dealCardsD4();
+            updatePlayerTotal();
+        }// 4th card
+        }// dealers turn
+
+
 
 }// end class game screen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

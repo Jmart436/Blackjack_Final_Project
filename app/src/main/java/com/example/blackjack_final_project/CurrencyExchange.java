@@ -12,7 +12,7 @@ public class CurrencyExchange extends AppCompatActivity {
 
     public String bankAmountTotalString;
 
-    public int bankAmountTotalInt = MainActivity.bankAmountTotalInt;
+    public int bankAmountTotalInt = GameScreen.bankAmountTotalInt;
 
     public static boolean dollarStatus = true; // default status is dollar
     public final double DOLLAR2EURO = 0.88; // 1 Dollar equals DOLLAR2EURO Euros
