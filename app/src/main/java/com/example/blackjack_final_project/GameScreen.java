@@ -47,7 +47,7 @@ public class GameScreen extends AppCompatActivity {
     public String suitConversion;
     public String changeThisName;
     public int playerTotalInt; // player total used for calculations
-    public int playCounter; // counts how many times cards are drawn
+    public int playCounter = 0; // counts how many times cards are drawn
     public TextView playerTotal; // display of player total on screen
     public TextView betTextView; // display current bet above seekbar
     public TextView seekBarTextView;
@@ -57,9 +57,10 @@ public class GameScreen extends AppCompatActivity {
     public Button endGameButton; // end game button
     public Button dealButton; // deal button
     public Button standButton; // stand button
+    public Button splitButton; // split button
     public SeekBar betSeekbar; // seekbar
 
-    //public String bankAmountTotalString = MainActivity.bankAmountTotalString;
+    public String bankAmountTotalString = MainActivity.bankAmountTotalString;
     public int customBet; // current bet total used for calculations
     public ImageView dealerCard1;
     public ImageView dealerCard2;
@@ -71,14 +72,13 @@ public class GameScreen extends AppCompatActivity {
     public ImageView playerCard4;
     public ImageView cardBack;
 
-    public static int bankAmountTotalInt;// = MainActivity.bankAmountTotalInt;
+    //public static int bankAmountTotalInt;// = MainActivity.bankAmountTotalInt;
     public int dealerCardCounter;
     public int playerCardCounter;
 
     public int hitButtonClickCounter;
 
     // For displaying Euros and Dollars in bank
-    public String bankAmountTotalString;
     public boolean Euro = CurrencyExchange.Euro;
     // Bank Amounts in Euros and Dollars
     public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
@@ -100,6 +100,7 @@ public class GameScreen extends AppCompatActivity {
         standButton = (Button) findViewById(R.id.stand_button);
         doubleButton = (Button) findViewById(R.id.double_button);
         hitButton = (Button) findViewById(R.id.hit_button);
+        splitButton = (Button) findViewById(R.id.split_button);
         betSeekbar = (SeekBar) findViewById(R.id.bet_amount_seekbar);
         betSeekbar.setOnSeekBarChangeListener(betSeekbarListener);
 
@@ -111,6 +112,13 @@ public class GameScreen extends AppCompatActivity {
         playerCard2 = (ImageView) findViewById(R.id.player_card_2);
         playerCard3 = (ImageView) findViewById(R.id.player_card_3);
         playerCard4 = (ImageView) findViewById(R.id.player_card_4);
+
+        // Sets Stand, Double, Hit, and Split as Invisible
+        standButton.setVisibility(View.INVISIBLE);
+        doubleButton.setVisibility(View.INVISIBLE);
+        hitButton.setVisibility(View.INVISIBLE);
+        splitButton.setVisibility(View.INVISIBLE);
+
 
         // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
         updateBank();
@@ -142,6 +150,12 @@ public class GameScreen extends AppCompatActivity {
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
                 betSeekbar.setVisibility(View.INVISIBLE); // removes bet seekbar
                 seekBarTextView.setVisibility(View.INVISIBLE); // removes "place your bet" text
+
+                // Turns Stand, Double, Hit, and Split Visible
+                standButton.setVisibility(View.VISIBLE);
+                doubleButton.setVisibility(View.VISIBLE);
+                hitButton.setVisibility(View.VISIBLE);
+                splitButton.setVisibility(View.VISIBLE);
             }// end on click of deal button
         });// end override
 
@@ -155,25 +169,69 @@ public class GameScreen extends AppCompatActivity {
             }// end on click
         });
 
+        // Player clicks Double Button
         doubleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(customBet > Integer.parseInt(bankAmountTotalString)/2 ){
+
+                // Checks playCounter to see if Player is eligble to double at this stage in game
+                // Player is not eligible to double
+                if (playCounter == 0 || playCounter > 1){
                     Context context = getApplicationContext();
                     int duration = Toast.LENGTH_SHORT; // sets length for toast
-                    Toast toast = Toast.makeText(context, "You do not have enough funds to Double.", duration); //sets content for toast
+                    Toast toast = Toast.makeText(context, "You can't double at this stage", duration); //sets content for toast
                     toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
                     toast.show();
-                }// end if
-                else {
-                    customBet = customBet * 2;
-                    updateBet();
-                    dealCardsP3();
-                    updatePlayerTotal();
-                    endGameCheck();
-                }// end else
+                }
+                // Player is eligible to double
+                else{
+                    // If Euros status
+                    if (Euro == true){
+                        // Checks bank for sufficient funds to double bet
+                        if(customBet > bankAmountEuro){
+                            Context context = getApplicationContext();
+                            int duration = Toast.LENGTH_SHORT; // sets length for toast
+                            Toast toast = Toast.makeText(context, "You do not have enough funds to Double.", duration); //sets content for toast
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
+                            toast.show();
+                        }
+                        else{
+                            // Subtract additional customBet from Bank
+                            bankAmountEuro = bankAmountEuro - customBet;
+                            customBet = customBet * 2;
+                            updateBank();
+                            updateBet();
+                            dealCardsP3();
+                            updatePlayerTotal();
+                            endGameCheck();
+                        }
+                    } // end if for Euro status
+                    // If Dollar Status
+                    else{
+                        // Checks bank for sufficient funds to double bet
+                        if(customBet > bankAmountDollarTotal){
+                            Context context = getApplicationContext();
+                            int duration = Toast.LENGTH_SHORT; // sets length for toast
+                            Toast toast = Toast.makeText(context, "You do not have enough funds to Double.", duration); //sets content for toast
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
+                            toast.show();
+                        }
+                        else{
+                            // Subtract additional customBet from Bank
+                            bankAmountDollarTotal = bankAmountDollarTotal - customBet;
+                            customBet = customBet * 2;
+                            updateBank();
+                            updateBet();
+                            dealCardsP3();
+                            updatePlayerTotal();
+                            endGameCheck();
+                        }
+                    } // end else for Dollar Status
+                }
+
             } // end on click double
         });// end Override
+
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,6 +287,10 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(winDisplay);
             toast.show();
             // add delay
+
+            // Add Winnings to Bank
+            addWinnings2Bank();
+
             gameDone();
             // display win message
         }// end if win
@@ -240,8 +302,8 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-            bankAmountTotalInt = bankAmountTotalInt - customBet;
-            bankAmountTextView.setText("Bank: $" + bankAmountTotalInt);
+
+            gameDone();
 
         }// end if lose
         if (playerTotalInt > dealerTotalInt && playerTotalInt <= 21) {
@@ -252,6 +314,11 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(winDisplay);
             toast.show();
+
+            // Add Winnings to Bank
+            addWinnings2Bank();
+            gameDone();
+
         }// end if win
         if (dealerTotalInt > playerTotalInt && dealerTotalInt <= 21) {
             //lose
@@ -261,8 +328,8 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-            bankAmountTotalInt = bankAmountTotalInt - customBet;
-            bankAmountTextView.setText("Bank: $" + bankAmountTotalInt);
+
+            gameDone();
 
         }// end if lose
         if (dealerTotalInt > 21) {
@@ -273,6 +340,11 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(winDisplay);
             toast.show();
+
+            // add Winnings to Bank
+            addWinnings2Bank();
+            gameDone();
+
         }// end if win
 
         // probally remove this
@@ -568,6 +640,7 @@ public class GameScreen extends AppCompatActivity {
         playerCard2.setImageDrawable(null);
         playerCard3.setImageDrawable(null);
         playerCard4.setImageDrawable(null);
+        customBet = 0;
     }
     public void dealersTurn(){
         if (dealerTotalInt < 17) {
@@ -595,6 +668,22 @@ public class GameScreen extends AppCompatActivity {
         }
 
     } // End update Bank
+
+    // Adds Player bet and winnings to bank
+    public void addWinnings2Bank(){
+        if (Euro == true){
+            bankAmountEuro = bankAmountEuro + customBet * 2;
+            bankAmountTotalString = String.valueOf(bankAmountEuro);
+            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+        }
+        // If Dollars
+        else{
+            bankAmountDollarTotal = bankAmountDollarTotal + customBet * 2;
+            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
+            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+        }
+        customBet = 0;
+    }
 
 
 
