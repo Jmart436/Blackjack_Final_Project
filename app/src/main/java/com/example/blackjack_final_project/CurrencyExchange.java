@@ -12,14 +12,10 @@ public class CurrencyExchange extends AppCompatActivity {
 
     // Final variables constants used for currency exchange calculations
     public final double DOLLAR2EURO = 0.88; // 1 Dollar equals DOLLAR2EURO Euros
-
-
     public static boolean Euro = false;
 
-    public int bankAmountDollar = MainActivity.bankAmountTotalInt;
 
-    //test
-    public static int bankAmountDollarTotal;
+    public int bankAmountDollar = MainActivity.bankAmountTotalInt;
     public int bankAmountEuroEntry = MainActivity.bankAmountEuroEntry;
     public static int bankAmountTotalEuro;
 
@@ -27,7 +23,6 @@ public class CurrencyExchange extends AppCompatActivity {
 
     public Button gameScreenBackButton;
     public Button convertButton;
-
     public TextView bankAmountTextView;
 
     @Override
@@ -37,10 +32,10 @@ public class CurrencyExchange extends AppCompatActivity {
 
         bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
 
-        //test
-        bankAmountDollarTotal = bankAmountDollar;
-
+        // Allows player to add funds as Euros after conversion.
         bankAmountTotalEuro = bankAmountEuro + bankAmountEuroEntry;
+
+        // Displays bank amount in Euros or Dollars depending on Euro status
         if(Euro == true){
             bankAmountTextView.setText("Bank : €" + bankAmountTotalEuro);
         }
@@ -48,8 +43,6 @@ public class CurrencyExchange extends AppCompatActivity {
             bankAmountTextView.setText("Bank : $" + bankAmountDollar);
 
         }
-
-
 
         // Convert Button
         convertButton = (Button) findViewById(R.id.confirm_currency_exchange);

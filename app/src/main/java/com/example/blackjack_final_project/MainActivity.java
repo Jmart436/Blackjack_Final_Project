@@ -24,20 +24,20 @@ public class MainActivity extends AppCompatActivity {
     // initialize all variables
     public TextView bankAmountTextView;
     public EditText bankAmountEditText;
-
     public ImageButton submitBankAmount;
     public Button currencyConversionButton;
     public Button gameRulesButton;
     public Button playButton;
 
     // variables for currency conversion
-    public static int bankAmountTotalInt = 0;
     public static String bankAmountTotalString;
     public boolean Euro = CurrencyExchange.Euro;
-    public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
     public int bankAmountEntry;
     public static int bankAmountEuroEntry;
-    public int bankAmountDollarTotal = CurrencyExchange.bankAmountDollarTotal;
+
+    // Use these variables when interacting with Bank total
+    public static int bankAmountTotalInt = 0; // Total Bank Amount in Dollars
+    public int bankAmountEuro = CurrencyExchange.bankAmountEuro; // Total Bank Amount in Euros
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
             bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
         }
         else{
-
-            //bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
+            bankAmountTotalString = String.valueOf(bankAmountTotalInt);
             bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
         }
 
@@ -134,6 +132,16 @@ public class MainActivity extends AppCompatActivity {
 
             }// end on click
         }); // end override
+
+        // Game Rules Button takes player to GameRules screen
+        gameRulesButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(MainActivity.this, GameRules.class);
+                startActivity(intent2);
+                setContentView(R.layout.game_rules);
+            }
+        });
 
 
 }// end on create

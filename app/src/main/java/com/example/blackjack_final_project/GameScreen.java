@@ -81,7 +81,7 @@ public class GameScreen extends AppCompatActivity {
     public String bankAmountTotalString;
     public boolean Euro = CurrencyExchange.Euro;
     public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
-    public int bankAmountDollarTotal = CurrencyExchange.bankAmountDollarTotal;
+    public int bankAmountDollarTotal = MainActivity.bankAmountTotalInt;
 
 
     @Override
