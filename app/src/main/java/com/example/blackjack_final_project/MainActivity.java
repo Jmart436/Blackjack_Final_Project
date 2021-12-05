@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean Euro = CurrencyExchange.Euro;
     public int bankAmountEntry;
     public static int bankAmountEuroEntry;
+    public static int bankAmountTotalEuro;
 
     // Use these variables when interacting with Bank total
     public static int bankAmountTotalInt = 0; // Total Bank Amount in Dollars
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 // If Euro
                 if (Euro == true){
                     bankAmountEuroEntry = Integer.parseInt(bankAmountEditText.getText().toString());
-                    bankAmountTotalInt = bankAmountEuro + bankAmountEuroEntry;
-                    bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+                    bankAmountTotalEuro = bankAmountEuro + bankAmountEuroEntry;
+                    bankAmountTotalString = String.valueOf(bankAmountTotalEuro);
                     bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
                 }
                 // If Dollar
