@@ -60,8 +60,6 @@ public class GameScreen extends AppCompatActivity {
     public Button splitButton; // split button
     public SeekBar betSeekbar; // seekbar
 
-    public String bankAmountTotalString = MainActivity.bankAmountTotalString;
-    public int customBet; // current bet total used for calculations
     public ImageView dealerCard1;
     public ImageView dealerCard2;
     public ImageView dealerCard3;
@@ -71,6 +69,9 @@ public class GameScreen extends AppCompatActivity {
     public ImageView playerCard3;
     public ImageView playerCard4;
     public ImageView cardBack;
+    public String bankAmountTotalString = MainActivity.bankAmountTotalString;
+    // current bet total used for calculations w/ default value of 25
+    public int customBet = 25;
 
     //public static int bankAmountTotalInt;// = MainActivity.bankAmountTotalInt;
     public int dealerCardCounter;
@@ -122,8 +123,10 @@ public class GameScreen extends AppCompatActivity {
 
         // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
         updateBank();
+        updateBet();
 
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
+
 
         // Player clicks Deal Button
         dealButton.setOnClickListener(new View.OnClickListener() {
