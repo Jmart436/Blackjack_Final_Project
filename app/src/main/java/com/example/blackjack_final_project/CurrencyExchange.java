@@ -33,7 +33,7 @@ public class CurrencyExchange extends AppCompatActivity {
         bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
 
         // Allows player to add funds as Euros after conversion.
-        //bankAmountTotalEuro = bankAmountEuro + bankAmountEuroEntry;
+        bankAmountTotalEuro = bankAmountEuro + bankAmountEuroEntry;
 
         // Displays bank amount in Euros or Dollars depending on Euro status
         if(Euro == true){

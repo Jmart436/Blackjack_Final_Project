@@ -80,6 +80,7 @@ public class GameScreen extends AppCompatActivity {
     // For displaying Euros and Dollars in bank
     public String bankAmountTotalString;
     public boolean Euro = CurrencyExchange.Euro;
+    // Bank Amounts in Euros and Dollars
     public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
     public int bankAmountDollarTotal = MainActivity.bankAmountTotalInt;
 
@@ -112,20 +113,24 @@ public class GameScreen extends AppCompatActivity {
         playerCard4 = (ImageView) findViewById(R.id.player_card_4);
 
         // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
-        if(Euro == true){
-            bankAmountTotalString = String.valueOf(bankAmountEuro);
-            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
-        }
-        else{
-            //bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
-            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
-        }
+        updateBank();
+
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
 
+        // Player clicks Deal Button
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Subtract customBet from Bank
+                if (Euro == true) { // If Euros
+                    bankAmountEuro = bankAmountEuro - customBet;
+                }
+                else{ // If Dollars
+                    bankAmountDollarTotal = bankAmountDollarTotal -customBet;
+                }
+                updateBank();
+
                 playCounter += 1; // adds one to play counter
                 dealCardsP1(); // calls deal cards player card 1
                 dealCardsP2(); // calls deal cards player card 2
@@ -575,6 +580,21 @@ public class GameScreen extends AppCompatActivity {
             updatePlayerTotal();
         }// 4th card
         }// dealers turn
+
+    // Updates and Displays Bank TextView
+    public void updateBank(){
+        // If Euros
+        if (Euro == true){
+            bankAmountTotalString = String.valueOf(bankAmountEuro);
+            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+        }
+        // If Dollars
+        else{
+            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
+            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+        }
+
+    } // End update Bank
 
 
 
