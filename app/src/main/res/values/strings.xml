@@ -21,4 +21,16 @@
     <string name="play_button">Play</string>
     <string name="end_game_button_text">← End Game</string>
     <string name="bet_text">Bet: </string>
+    <string name="gr">Game Rules!</string>
+    <string name="beat_dealer">How do you beat the dealer?</string>
+    <string name="beat_one">1) By drawing a hand value that is higher than the dealer’s hand value</string>
+    <string name="beat_two">2) By the dealer drawing a hand value that goes over 21.</string>
+    <string name="beat_three">3) By drawing a hand value of 21 on your first two cards, when the dealer does not.</string>
+    <string name="lose_quest">How do you lose to the dealer?</string>
+    <string name="lose_one">1) Your hand value exceeds 21.</string>
+    <string name="lose_two">2) The dealers hand has a greater value than yours at the end of the round</string>
+    <string name="played">Blackjack is played with a conventional deck of 52 playing cards and suits don’t matter.</string>
+    <string name="count_one">1) 2 through 10 count at face value, i.e. a 2 counts as two, a 9 counts as nine.</string>
+    <string name="count_two">2) Face cards (J,Q,K) count as 10.</string>.
+    <string name="count_three">3) Ace can count as a 1 or an 11 depending on which value helps the hand the most.</string>
 </resources>
