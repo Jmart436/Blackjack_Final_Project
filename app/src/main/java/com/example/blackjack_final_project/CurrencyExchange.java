@@ -10,13 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CurrencyExchange extends AppCompatActivity {
 
-    public String bankAmountTotalString;
-
-    public int bankAmountTotalInt = GameScreen.bankAmountTotalInt;
-
-    public static boolean dollarStatus = true; // default status is dollar
+    // Final variables constants used for currency exchange calculations
     public final double DOLLAR2EURO = 0.88; // 1 Dollar equals DOLLAR2EURO Euros
-    public final double EURO2DOLLAR = 1/0.88; // 1 Euro equals EURO2DOLLAR Dollars
+
+
+    public static boolean Euro = false;
+
+    public int bankAmountDollar = MainActivity.bankAmountTotalInt;
+
+    //test
+    public static int bankAmountDollarTotal;
+    public int bankAmountEuroEntry = MainActivity.bankAmountEuroEntry;
+    public static int bankAmountTotalEuro;
+
+    public static int bankAmountEuro;
 
     public Button gameScreenBackButton;
     public Button convertButton;
@@ -29,13 +36,19 @@ public class CurrencyExchange extends AppCompatActivity {
         setContentView(R.layout.currency_exchange);
 
         bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
-        if(dollarStatus == true){
-            bankAmountTextView.setText("Bank: $" + bankAmountTotalInt);
+
+        //test
+        bankAmountDollarTotal = bankAmountDollar;
+
+        bankAmountTotalEuro = bankAmountEuro + bankAmountEuroEntry;
+        if(Euro == true){
+            bankAmountTextView.setText("Bank : €" + bankAmountTotalEuro);
         }
-        if(dollarStatus == false){
-            bankAmountTextView.setText("Bank: €" + bankAmountTotalInt);
+        else{
+            bankAmountTextView.setText("Bank : $" + bankAmountDollar);
 
         }
+
 
 
         // Convert Button
@@ -45,25 +58,19 @@ public class CurrencyExchange extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Dollar to Euro
-                if(dollarStatus == true){
-                    bankAmountTotalInt = (int)(bankAmountTotalInt * DOLLAR2EURO);
-                    bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-                    bankAmountTextView.setText("€: "+ bankAmountTotalString);
-                    dollarStatus = false;
-                }
-                else{
-                    bankAmountTotalInt = (int)(bankAmountTotalInt * EURO2DOLLAR);
-                    bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-                    bankAmountTextView.setText("$: "+ bankAmountTotalString);
-                    dollarStatus = true;
+                if (Euro == false){
+                    bankAmountEuro = (int)(bankAmountDollar * DOLLAR2EURO);
+                    bankAmountTextView.setText("Bank: €" + bankAmountEuro);
+                    Euro = true;
                 }
                 // Euro to Dollar
-                //if (dollarStatus == false){
-                //    bankAmountTotalInt = (int)(bankAmountTotalInt * EURO2DOLLAR);
-                  //  bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-                    //bankAmountTextView.setText("$: "+ bankAmountTotalString);
-                    //dollarStatus = true;
-                //}
+               else{
+
+                   bankAmountDollar = (int)(bankAmountTotalEuro / DOLLAR2EURO);
+                   bankAmountTextView.setText("Bank: $" + bankAmountDollar);
+                   Euro = false;
+
+                }
 
             }
         });

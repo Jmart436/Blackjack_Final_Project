@@ -30,24 +30,25 @@ public class MainActivity extends AppCompatActivity {
     public Button gameRulesButton;
     public Button playButton;
 
-    public String bankAmountEntryString = "";
-    public int bankAmountInt = 0;
-    //public static int bankAmountTotalInt = 0;
-    public int bankAmountTotalInt = GameScreen.bankAmountTotalInt;
+    // variables for currency conversion
+    public static int bankAmountTotalInt = 0;
     public static String bankAmountTotalString;
-
-    public boolean dollarStatus = CurrencyExchange.dollarStatus;
+    public boolean Euro = CurrencyExchange.Euro;
+    public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
+    public int bankAmountEntry;
+    public static int bankAmountEuroEntry;
+    //test
+    public int bankAmountDollarTotal = CurrencyExchange.bankAmountDollarTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // import all buttons and views to variables
         bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
         bankAmountEditText = (EditText) findViewById(R.id.bank_amount_edittext);
-
         submitBankAmount = (ImageButton) findViewById(R.id.submit_bank_amount_button);
-
         currencyConversionButton = (Button) findViewById(R.id.currency_conversion_button);
         gameRulesButton = (Button) findViewById(R.id.game_rules_button);
         playButton = (Button) findViewById(R.id.play_button);
@@ -57,21 +58,39 @@ public class MainActivity extends AppCompatActivity {
             bankAmountTotalString = "0";
         }
 
-        // If converted to Euros
-        if(dollarStatus == false){
+        // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
+        if(Euro == true){
+            bankAmountTotalString = String.valueOf(bankAmountEuro);
             bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
         }
-        bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+        else{
 
+            //bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
+            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+        }
+
+        // Check Box Button to deposit money into bank
         submitBankAmount.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Updated code
-                bankAmountEntryString = bankAmountEditText.getText().toString();
-                bankAmountInt = Integer.parseInt(bankAmountEntryString);
-                bankAmountTotalInt = bankAmountTotalInt + bankAmountInt;
-                bankAmountTotalString = String.valueOf(bankAmountTotalInt);// use this for total calcs
-                bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+                // Gets String text from EditText, converts it to Int, and adds it to bankAmountTotalInt
+                // Converts bankAmountTotalInt to a String and displays it
+
+                // If Euro
+                if (Euro == true){
+                    bankAmountEuroEntry = Integer.parseInt(bankAmountEditText.getText().toString());
+                    bankAmountTotalInt = bankAmountEuro + bankAmountEuroEntry;
+                    bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+                    bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+                }
+                // If Dollar
+                else{
+                    bankAmountEntry = Integer.parseInt(bankAmountEditText.getText().toString());
+                    bankAmountTotalInt = bankAmountTotalInt + bankAmountEntry;
+                    bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+                    bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+                }
 
                 // Hides Keyboard after user clicks check
                 try {
@@ -84,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
             }// end on click
         });// end override
+
+        // Play Button takes player to GameScreen
         playButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {// on click of play button
@@ -104,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             }// end on click
         }); // end override
 
+        // Currency Exchange Button takes player to CurrencyExchange screen
         currencyConversionButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {// on click of play button
