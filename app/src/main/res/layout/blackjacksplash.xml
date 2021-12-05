@@ -11,21 +11,22 @@
         android:id="@+id/blackjack_splash"
         android:layout_width="211dp"
         android:layout_height="518dp"
-        android:contentDescription="blackjack"
+        android:contentDescription="@string/black_jack"
         android:src="@drawable/blackjackiconsplash"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497"
+        app:layout_constraintVertical_bias="0.075"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/blackjack_title"
         android:layout_width="201dp"
         android:layout_height="132dp"
-        android:contentDescription="Title"
+        android:contentDescription="@string/title"
         android:src="@drawable/blackjacktitle"
         app:layout_constraintBottom_toBottomOf="@+id/blackjack_splash"
         app:layout_constraintEnd_toEndOf="@+id/blackjack_splash"

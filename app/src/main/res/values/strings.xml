@@ -33,4 +33,6 @@
     <string name="count_one">1) 2 through 10 count at face value, i.e. a 2 counts as two, a 9 counts as nine.</string>
     <string name="count_two">2) Face cards (J,Q,K) count as 10.</string>.
     <string name="count_three">3) Ace can count as a 1 or an 11 depending on which value helps the hand the most.</string>
+    <string name="black_jack">blackjack</string>
+    <string name="title">Title</string>
 </resources>
