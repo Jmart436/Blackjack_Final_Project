@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
     public int bankAmountEntry;
     public static int bankAmountEuroEntry;
-    //test
     public int bankAmountDollarTotal = CurrencyExchange.bankAmountDollarTotal;
 
     @Override

@@ -58,7 +58,8 @@ public class GameScreen extends AppCompatActivity {
     public Button dealButton; // deal button
     public Button standButton; // stand button
     public SeekBar betSeekbar; // seekbar
-    public String bankAmountTotalString = MainActivity.bankAmountTotalString;
+
+    //public String bankAmountTotalString = MainActivity.bankAmountTotalString;
     public int customBet; // current bet total used for calculations
     public ImageView dealerCard1;
     public ImageView dealerCard2;
@@ -75,6 +76,13 @@ public class GameScreen extends AppCompatActivity {
     public int playerCardCounter;
 
     public int hitButtonClickCounter;
+
+    // For displaying Euros and Dollars in bank
+    public String bankAmountTotalString;
+    public boolean Euro = CurrencyExchange.Euro;
+    public int bankAmountEuro = CurrencyExchange.bankAmountEuro;
+    public int bankAmountDollarTotal = CurrencyExchange.bankAmountDollarTotal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +111,16 @@ public class GameScreen extends AppCompatActivity {
         playerCard3 = (ImageView) findViewById(R.id.player_card_3);
         playerCard4 = (ImageView) findViewById(R.id.player_card_4);
 
+        // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
+        if(Euro == true){
+            bankAmountTotalString = String.valueOf(bankAmountEuro);
+            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+        }
+        else{
+            //bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
+            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+        }
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
 
         dealButton.setOnClickListener(new View.OnClickListener() {
@@ -179,9 +197,8 @@ public class GameScreen extends AppCompatActivity {
                 setContentView(R.layout.activity_main);
             }// end on click
         });
-        TextView bankAmountTextView = (TextView) findViewById(R.id.bank_amount_textview);
-        bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
-    }// end on click
+
+    }// end on create
 
 
     public OnSeekBarChangeListener betSeekbarListener = new OnSeekBarChangeListener() {
@@ -485,7 +502,13 @@ public class GameScreen extends AppCompatActivity {
     }// end deal cards P4
 
     public void updateBet(){// updates current bet amount
-       betTextView.setText("Bet: " + String.valueOf(currencyFormat.format(customBet)));
+        if (Euro == true){
+            betTextView.setText("Bet: €" + customBet);
+        }
+        else{
+            betTextView.setText("Bet: $" + customBet);
+        }
+
     }
     public void updatePlayerTotal(){ // updates total of cards on the table
         switch (cardValueP1){
