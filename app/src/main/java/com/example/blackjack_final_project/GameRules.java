@@ -31,4 +31,5 @@ public class GameRules extends MainActivity{
         });
 
     }
+
 }
