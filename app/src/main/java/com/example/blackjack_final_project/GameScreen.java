@@ -445,6 +445,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         changeThisName = suitConversion + cardValue; // creates a string to access image resouce file
         dealerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
+        updatePlayerTotal();
     }// end deal D1
 
     // D2
@@ -471,6 +472,7 @@ public class GameScreen extends AppCompatActivity {
             }// end switch
             changeThisName = suitConversion + cardValueD2;
             dealerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
+            //updatePlayerTotal();
 
     }// end deal cards D2
 
@@ -498,6 +500,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         changeThisName = suitConversion + cardValueD3;
         dealerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
+
     }// end deal cards D3
 
     // D4
