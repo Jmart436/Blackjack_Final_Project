@@ -210,10 +210,11 @@ public class GameScreen extends AppCompatActivity {
                     }, 500);
 
                 } // end if less than 17
-                else {
+
                     checkLose();
                     checkWin();
-                }
+                    checkPush();
+
 
             }// end on click
         });
@@ -252,9 +253,6 @@ public class GameScreen extends AppCompatActivity {
                                 updateBank();
                                 updateBet();
 
-                                checkLose();
-                                checkWin();
-                                checkPush();
                             } else {
                                 // Sends toast informing player they can only double once
                                 Context context = getApplicationContext();
@@ -505,12 +503,13 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(pushDisplay);
             toast.show();
             // Add Winnings to Bank
-            addWinnings2Bank();
+            pushEarnings();
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
             doubleButton.setVisibility(View.INVISIBLE);
             hitButton.setVisibility(View.INVISIBLE);
+            dealerTotalInt = 18;
         }// end if push
     }// end check push
 
@@ -1082,6 +1081,20 @@ public class GameScreen extends AppCompatActivity {
         }
         customBet = 0;
     }// end addWinnings to function
+    public void pushEarnings(){
+        if (Euro == true) {
+            bankAmountEuro = bankAmountEuro + customBet;
+            bankAmountTotalString = String.valueOf(bankAmountEuro);
+            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+        }
+        // If Dollars
+        else {
+            bankAmountDollarTotal = bankAmountDollarTotal + customBet;
+            bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
+            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+        }
+        customBet = 0;
+    }
 
     public void resetGame() {
         playerCard1.setImageDrawable(null);
@@ -1131,6 +1144,7 @@ public class GameScreen extends AppCompatActivity {
         adjustAces();
         dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4 + cardValueD5;
         dealerTotal.setText("Total: " + dealerTotalInt);
+        checkPush();
     }
 
     public void checkEndGame(){
