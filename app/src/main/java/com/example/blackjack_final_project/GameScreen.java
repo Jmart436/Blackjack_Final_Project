@@ -173,11 +173,11 @@ public class GameScreen extends AppCompatActivity {
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
                 betSeekbar.setVisibility(View.INVISIBLE); // removes bet seekbar
                 seekBarTextView.setVisibility(View.INVISIBLE); // removes "place your bet" text
-
                 // Turns Stand, Double, Hit, and Split Visible
                 standButton.setVisibility(View.VISIBLE);
                 doubleButton.setVisibility(View.VISIBLE);
                 hitButton.setVisibility(View.VISIBLE);
+                checkBlackJack();
             }// end on click of deal button
         });// end override
 
@@ -185,8 +185,8 @@ public class GameScreen extends AppCompatActivity {
         standButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // if dealer total is less than player total then draw
                 dealCardsD2();
-
                 dealersTurn();
                 checkLose();
                 checkWin();
@@ -317,12 +317,6 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resetGame();
-                updatePlayerTotal();
-                dealerTotalInt = 0;
-                playerTotalInt = 0;
-                dealerTotal.setText(null);
-                playerTotal.setText(null);
-
                 resetButton.setVisibility(View.INVISIBLE);
             }
         });
@@ -837,6 +831,8 @@ public class GameScreen extends AppCompatActivity {
         dealerCard2.setImageDrawable(null);
         dealerCard3.setImageDrawable(null);
         dealerCard4.setImageDrawable(null);
+        dealerTotal.setText(null);
+        playerTotal.setText(null);
         customBet = 0;
         betSeekbar.setVisibility(View.VISIBLE);
         dealButton.setVisibility(View.VISIBLE);
@@ -845,6 +841,15 @@ public class GameScreen extends AppCompatActivity {
         hitButton.setVisibility(View.INVISIBLE);
         dealerTotalInt = 0;
         playerTotalInt = 0;
+        cardValue = 0;
+        cardValueD2 = 0;
+        cardValueD3 = 0;
+        cardValueD4 = 0;
+        cardValueP1= 0 ;
+        cardValueP2 = 0;
+        cardValueP3 = 0;
+        cardValueP4 = 0;
+        changeThisName = null;
 
     }
 
