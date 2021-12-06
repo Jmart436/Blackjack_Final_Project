@@ -41,11 +41,13 @@ public class GameScreen extends AppCompatActivity {
     public int cardValueD2; // int for assigned face value of card
     public int cardValueD3; // int for assigned face value of card
     public int cardValueD4; // int for assigned face value of card
+    public int cardValueD5;
     public int cardSuitP1; // int for assigned suit of card
     public int cardValueP1; // int for assigned face value of card
     public int cardValueP2; // int for assigned face value of card
     public int cardValueP3; // int for assigned face value of card
     public int cardValueP4; // int for assigned face value of card
+    public int cardValueP5;
     public int cardSuitP2; // int for assigned suit of card
     public String suitConversion;
     public String changeThisName;
@@ -67,10 +69,13 @@ public class GameScreen extends AppCompatActivity {
     public ImageView dealerCard2;
     public ImageView dealerCard3;
     public ImageView dealerCard4;
+    public ImageView dealerCard5;
+
     public ImageView playerCard1;
     public ImageView playerCard2;
     public ImageView playerCard3;
     public ImageView playerCard4;
+    public ImageView playerCard5;
     public ImageView cardBack;
     public String bankAmountTotalString = MainActivity.bankAmountTotalString;
     public int customBet = 25; // current bet total used for calculations w/ default value of 25
@@ -112,10 +117,12 @@ public class GameScreen extends AppCompatActivity {
         dealerCard2 = (ImageView) findViewById(R.id.dealer_card_2);
         dealerCard3 = (ImageView) findViewById(R.id.dealer_card_3);
         dealerCard4 = (ImageView) findViewById(R.id.dealer_card_4);
+        dealerCard5 = (ImageView) findViewById(R.id.dealer_card_5);
         playerCard1 = (ImageView) findViewById(R.id.player_card_1);
         playerCard2 = (ImageView) findViewById(R.id.player_card_2);
         playerCard3 = (ImageView) findViewById(R.id.player_card_3);
         playerCard4 = (ImageView) findViewById(R.id.player_card_4);
+        playerCard5 = (ImageView) findViewById(R.id.player_card_5) ;
 
         // Sets Stand, Double, Hit, and Split as Invisible
         standButton.setVisibility(View.INVISIBLE);
@@ -201,12 +208,9 @@ public class GameScreen extends AppCompatActivity {
                         }
                     }, 500);
 
-
                 } // end if less than 17
                 checkLose();
                 checkWin();
-
-
 
             }// end on click
         });
@@ -311,6 +315,12 @@ public class GameScreen extends AppCompatActivity {
                         checkBlackJack();
                         checkBust();
                         break;
+                    case 3:
+                        dealCardsP5();
+                        generateTotals();
+                        adjustAces();
+                        checkBlackJack();
+                        checkBust();
                 }// end switch
             }// end onclick Hit
         });
@@ -583,6 +593,33 @@ public class GameScreen extends AppCompatActivity {
 
     }// end deal cards D4
 
+    public void dealCardsD5() {
+        // dealer card 4
+        dealerCardCounter += 1;
+        Random randomSuit2 = new Random();
+        Random randomValue2 = new Random();
+        cardSuitD2 = 1 + randomSuit2.nextInt(4);
+        cardValueD5 = 1 + randomValue2.nextInt(13);
+        switch (cardSuitD2) {
+            case 1:
+                suitConversion = "c";
+                break;
+            case 2:
+                suitConversion = "d";
+                break;
+            case 3:
+                suitConversion = "h";
+                break;
+            case 4:
+                suitConversion = "s";
+                break;
+        }// end switch
+        changeThisName = suitConversion + cardValueD4;
+        dealerCard5.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
+        checkEndGame();
+
+
+    }// end deal cards D4
     // P1
     public void dealCardsP1() {
         //P1
@@ -719,6 +756,33 @@ public class GameScreen extends AppCompatActivity {
         adjustAces();
         checkBlackJack();
     }// end deal cards P4
+    public void dealCardsP5() {
+        // player card 3
+        playerCardCounter += 1;
+        Random randomSuitP2 = new Random();
+        Random randomValueP2 = new Random();
+        cardSuitP2 = 1 + randomSuitP2.nextInt(4);
+        cardValueP5 = 1 + randomValueP2.nextInt(13);
+        switch (cardSuitP2) {
+            case 1:
+                suitConversion = "c";
+                break;
+            case 2:
+                suitConversion = "d";
+                break;
+            case 3:
+                suitConversion = "h";
+                break;
+            case 4:
+                suitConversion = "s";
+                break;
+        }// end switch
+        changeThisName = suitConversion + cardValueP4; // creates a string to access image resouce file
+        playerCard5.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
+        generateTotals();
+        adjustAces();
+        checkBlackJack();
+    }// end deal cards P4
 
 
     // Updates Bet
@@ -774,14 +838,14 @@ public class GameScreen extends AppCompatActivity {
     public void generateTotals() {
         // for Player
         switch (cardValueP1) {
-            case 1: // Ace
-                cardValueP1 = 11;
-                break;
             case 10:
             case 11:
             case 12:
             case 13:
                 cardValueP1 = 10;
+                break;
+            case 1: // Ace
+                cardValueP1 = 11;
                 break;
         }// end switch
         switch (cardValueP2) {
@@ -936,12 +1000,12 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void updatePlayerTotalLabel() {
-        playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4;
+        playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4 + cardValueP5;
         playerTotal.setText("Total: " + playerTotalInt);
     }
 
     public void updateDealerTotalLabel() {
-        dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4;
+        dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4 + cardValueD5;
         dealerTotal.setText("Total: " + dealerTotalInt);
     }
 
