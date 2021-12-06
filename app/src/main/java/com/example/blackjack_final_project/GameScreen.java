@@ -210,8 +210,10 @@ public class GameScreen extends AppCompatActivity {
                     }, 500);
 
                 } // end if less than 17
-                checkLose();
-                checkWin();
+                else {
+                    checkLose();
+                    checkWin();
+                }
 
             }// end on click
         });
@@ -348,7 +350,19 @@ public class GameScreen extends AppCompatActivity {
 
     }// end on create
 
-    // Seekbar for customizing bets
+    //saving state when rotated
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+    }// end save state
+
+    // restore state
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
+    }// end restore state
+
+
+        // Seekbar for customizing bets
     public OnSeekBarChangeListener betSeekbarListener = new OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -374,11 +388,20 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(winDisplay);
             toast.show();
+            addWinnings2Bank();
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
             // add delay
             // Add Winnings to Bank
             addWinnings2Bank();
             dealCardsD2();
             resetButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
             // display win message
         }// end if win
         if (dealerTotalInt == 21) {
@@ -390,6 +413,10 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(loseDisplay);
             toast.show();
             resetButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
         }// end if lose
     }// end check black jack
 
@@ -405,6 +432,10 @@ public class GameScreen extends AppCompatActivity {
             // add Winnings to Bank
             addWinnings2Bank();
             resetButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
         }// end if bust
         if (playerTotalInt > 21) {
             dealCardsD2();
@@ -415,6 +446,10 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(loseDisplay);
             toast.show();
             resetButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
         }// end if bust
     } // end check bust
 
@@ -430,7 +465,9 @@ public class GameScreen extends AppCompatActivity {
             // Add Winnings to Bank
             addWinnings2Bank();
             resetButton.setVisibility(View.VISIBLE);
-
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
             // TODO: create new winnings variable
 
         }// end if win
@@ -448,6 +485,10 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(loseDisplay);
             toast.show();
             resetButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
 
         }// end if lose
 
@@ -466,6 +507,10 @@ public class GameScreen extends AppCompatActivity {
             // Add Winnings to Bank
             addWinnings2Bank();
             resetButton.setVisibility(View.VISIBLE);
+            resetButton.setVisibility(View.VISIBLE);
+            standButton.setVisibility(View.INVISIBLE);
+            doubleButton.setVisibility(View.INVISIBLE);
+            hitButton.setVisibility(View.INVISIBLE);
         }// end if push
     }// end check push
 
@@ -550,7 +595,7 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueD3;
         dealerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateD3();
-        checkEndGame();
+        //checkEndGame();
 
 
         // Checks to see if D4 needs to be drawn
