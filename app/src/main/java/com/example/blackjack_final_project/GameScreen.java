@@ -1043,10 +1043,12 @@ public class GameScreen extends AppCompatActivity {
         playerCard2.setImageDrawable(null);
         playerCard3.setImageDrawable(null);
         playerCard4.setImageDrawable(null);
+        playerCard5.setImageDrawable(null);
         dealerCard1.setImageDrawable(null);
         dealerCard2.setImageDrawable(null);
         dealerCard3.setImageDrawable(null);
         dealerCard4.setImageDrawable(null);
+        dealerCard5.setImageDrawable(null);
         dealerTotal.setText(null);
         playerTotal.setText(null);
         customBet = 0;
@@ -1061,10 +1063,12 @@ public class GameScreen extends AppCompatActivity {
         cardValueD2 = 0;
         cardValueD3 = 0;
         cardValueD4 = 0;
+        cardValueD5 = 0;
         cardValueP1 = 0;
         cardValueP2 = 0;
         cardValueP3 = 0;
         cardValueP4 = 0;
+        cardValueP5 = 0;
         changeThisName = null;
         hitButtonClickCounter = 0;
         doubleButtonCounter = 0;
