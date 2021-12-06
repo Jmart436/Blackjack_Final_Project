@@ -646,8 +646,8 @@ public class GameScreen extends AppCompatActivity {
         playerCardCounter += 1;
         Random randomSuitP2 = new Random();
         Random randomValueP2 = new Random();
-        cardSuitP2 = 1 + randomSuitP2.nextInt(5 - 1);
-        cardValueP2 = 1 + randomValueP2.nextInt(14 - 1);
+        cardSuitP2 = 1 + randomSuitP2.nextInt(4);
+        cardValueP2 = 1 + randomValueP2.nextInt(13);
         switch (cardSuitP2) {
             case 1:
                 suitConversion = "c";
@@ -672,8 +672,8 @@ public class GameScreen extends AppCompatActivity {
         playerCardCounter += 1;
         Random randomSuitP3 = new Random();
         Random randomValueP3 = new Random();
-        cardSuitP2 = 1 + randomSuitP3.nextInt(5 - 1);
-        cardValueP3 = 1 + randomValueP3.nextInt(14 - 1);
+        cardSuitP2 = 1 + randomSuitP3.nextInt(4);
+        cardValueP3 = 1 + randomValueP3.nextInt(13);
         switch (cardSuitP2) {
             case 1:
                 suitConversion = "c";
@@ -698,8 +698,8 @@ public class GameScreen extends AppCompatActivity {
         playerCardCounter += 1;
         Random randomSuitP2 = new Random();
         Random randomValueP2 = new Random();
-        cardSuitP2 = 1 + randomSuitP2.nextInt(5 - 1);
-        cardValueP4 = 1 + randomValueP2.nextInt(14 - 1);
+        cardSuitP2 = 1 + randomSuitP2.nextInt(4);
+        cardValueP4 = 1 + randomValueP2.nextInt(13);
         switch (cardSuitP2) {
             case 1:
                 suitConversion = "c";
