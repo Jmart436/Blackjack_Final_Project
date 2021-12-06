@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -410,16 +411,15 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(winDisplay);
             toast.show();
-            addWinnings2Bank();
-            resetButton.setVisibility(View.VISIBLE);
-            standButton.setVisibility(View.INVISIBLE);
-            doubleButton.setVisibility(View.INVISIBLE);
-            hitButton.setVisibility(View.INVISIBLE);
+
+            // Blackjack sound
+            MediaPlayer blackjack = MediaPlayer.create(GameScreen.this, R.raw.blackjack);
+            blackjack.start();
+
             // add delay
             // Add Winnings to Bank
             addWinnings2Bank();
             dealCardsD2();
-            resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
             doubleButton.setVisibility(View.INVISIBLE);
@@ -434,6 +434,12 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
+
+            // Loss Sound
+            MediaPlayer lose = MediaPlayer.create(GameScreen.this, R.raw.lose);
+            lose.start();
+
+
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -453,6 +459,11 @@ public class GameScreen extends AppCompatActivity {
             toast.show();
             // add Winnings to Bank
             addWinnings2Bank();
+
+            // win sound
+            MediaPlayer win = MediaPlayer.create(GameScreen.this, R.raw.win);
+            win.start();
+
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -467,6 +478,11 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
+
+            // lose sound
+            MediaPlayer lose = MediaPlayer.create(GameScreen.this, R.raw.lose);
+            lose.start();
+
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -486,6 +502,11 @@ public class GameScreen extends AppCompatActivity {
             toast.show();
             // Add Winnings to Bank
             addWinnings2Bank();
+
+            // win sound
+            MediaPlayer win = MediaPlayer.create(GameScreen.this, R.raw.win);
+            win.start();
+
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
             doubleButton.setVisibility(View.INVISIBLE);
@@ -506,6 +527,11 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
+
+            // lose sound
+            MediaPlayer lose = MediaPlayer.create(GameScreen.this, R.raw.lose);
+            lose.start();
+
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -528,6 +554,8 @@ public class GameScreen extends AppCompatActivity {
             toast.show();
             // Add Winnings to Bank
             pushEarnings();
+
+
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
