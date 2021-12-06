@@ -58,8 +58,8 @@ public class GameScreen extends AppCompatActivity {
     public Button endGameButton; // end game button
     public Button dealButton; // deal button
     public Button standButton; // stand button
-    public Button splitButton; // split button
     public SeekBar betSeekbar; // seekbar
+    public Button resetButton;
 
     public ImageView dealerCard1;
     public ImageView dealerCard2;
@@ -102,7 +102,7 @@ public class GameScreen extends AppCompatActivity {
         standButton = (Button) findViewById(R.id.stand_button);
         doubleButton = (Button) findViewById(R.id.double_button);
         hitButton = (Button) findViewById(R.id.hit_button);
-        splitButton = (Button) findViewById(R.id.split_button);
+        resetButton = (Button) findViewById(R.id.reset_game_button);
         betSeekbar = (SeekBar) findViewById(R.id.bet_amount_seekbar);
         betSeekbar.setOnSeekBarChangeListener(betSeekbarListener);
 
@@ -119,7 +119,6 @@ public class GameScreen extends AppCompatActivity {
         standButton.setVisibility(View.INVISIBLE);
         doubleButton.setVisibility(View.INVISIBLE);
         hitButton.setVisibility(View.INVISIBLE);
-        splitButton.setVisibility(View.INVISIBLE);
 
 
         // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
@@ -127,7 +126,6 @@ public class GameScreen extends AppCompatActivity {
         updateBet();
 
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
-
 
         // DEAL
         dealButton.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +141,6 @@ public class GameScreen extends AppCompatActivity {
                 }
                 updateBank();
                 playCounter += 1; // adds one to play counter
-
                 // P1
                 dealCardsP1(); // calls deal cards player card 1
                 // P2
@@ -157,7 +154,6 @@ public class GameScreen extends AppCompatActivity {
                         }// cards cannot equal
                     }
                 }, 500);
-
                 // D1
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -165,18 +161,13 @@ public class GameScreen extends AppCompatActivity {
                         dealCardD1(); // calls deal cards player card 1
                     }
                 }, 1000);
-
                 //D2
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         dealerCard2.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
-
                     }
                 }, 1500);
-
-
 
                 updatePlayerTotal(); // updates player totals
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
@@ -187,7 +178,6 @@ public class GameScreen extends AppCompatActivity {
                 standButton.setVisibility(View.VISIBLE);
                 doubleButton.setVisibility(View.VISIBLE);
                 hitButton.setVisibility(View.VISIBLE);
-                splitButton.setVisibility(View.VISIBLE);
             }// end on click of deal button
         });// end override
 
@@ -200,6 +190,7 @@ public class GameScreen extends AppCompatActivity {
                 dealersTurn();
                 checkLose();
                 checkWin();
+                checkBust();
             }// end on click
         });
 
@@ -207,7 +198,6 @@ public class GameScreen extends AppCompatActivity {
         doubleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Checks playCounter to see if Player is eligble to double at this stage in game
                 // Player is not eligible to double
                 if (playCounter == 0 || playCounter > 1){
@@ -323,6 +313,20 @@ public class GameScreen extends AppCompatActivity {
             }// end on click
         });
 
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetGame();
+                updatePlayerTotal();
+                dealerTotalInt = 0;
+                playerTotalInt = 0;
+                dealerTotal.setText(null);
+                playerTotal.setText(null);
+
+                resetButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
     }// end on create
 
     // Seekbar for customizing bets
@@ -352,8 +356,10 @@ public class GameScreen extends AppCompatActivity {
 
             // Add Winnings to Bank
             addWinnings2Bank();
+            dealCardsD2();
+            resetButton.setVisibility(View.VISIBLE);
 
-            gameDone();
+            //gameDone();
             // display win message
         }// end if win
         if (dealerTotalInt == 21){
@@ -364,7 +370,9 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-            gameDone();
+            resetButton.setVisibility(View.VISIBLE);
+
+            //gameDone();
         }// end if lose
     }// end check black jack
     public void checkBust(){
@@ -378,7 +386,8 @@ public class GameScreen extends AppCompatActivity {
             toast.show();
             // add Winnings to Bank
             addWinnings2Bank();
-            gameDone();
+            resetButton.setVisibility(View.VISIBLE);
+            //gameDone();
         }// end if bust
         if (playerTotalInt > 21){
             dealCardsD2();
@@ -388,6 +397,8 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
+            resetButton.setVisibility(View.VISIBLE);
+
         }// end if bust
     } // end check bust
     public void checkWin(){
@@ -399,10 +410,14 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(winDisplay);
             toast.show();
-
             // Add Winnings to Bank
             addWinnings2Bank();
-            gameDone();
+            //gameDone();
+            resetButton.setVisibility(View.VISIBLE);
+
+
+            // TODO: create new winnings variable
+
         }// end if win
 
     }// end check win
@@ -415,12 +430,12 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-            gameDone();
+            //gameDone();
+            resetButton.setVisibility(View.VISIBLE);
+
         }// end if lose
         updatePlayerTotal();
     }// end endGameCheck
-
-
     // D1
     public void dealCardD1() {
         // dealer card 1
@@ -711,7 +726,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setText("Total: " + String.valueOf(playerTotalInt));
         switch (cardValue){
             case 1: // Ace
-                if (playerTotalInt > 21){
+                if (dealerTotalInt > 21){
                     cardValue = 1;
                 }
                 else{
@@ -771,12 +786,13 @@ public class GameScreen extends AppCompatActivity {
 
 
     public void dealersTurn(){
+
         if (dealerTotalInt < 17) {
                 dealCardsD3();
                 updatePlayerTotal();
                 // end if less than 17
         }
-        if (dealerCard3.isShown() && dealerTotalInt < 17){
+        if (dealerTotalInt < 17){
             dealCardsD4();
             updatePlayerTotal();
         }// 4th card
@@ -811,8 +827,26 @@ public class GameScreen extends AppCompatActivity {
             bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
         }
         customBet = 0;
-    }
+    }// end addWinnings to function
+    public void resetGame(){
+        playerCard1.setImageDrawable(null);
+        playerCard2.setImageDrawable(null);
+        playerCard3.setImageDrawable(null);
+        playerCard4.setImageDrawable(null);
+        dealerCard1.setImageDrawable(null);
+        dealerCard2.setImageDrawable(null);
+        dealerCard3.setImageDrawable(null);
+        dealerCard4.setImageDrawable(null);
+        customBet = 0;
+        betSeekbar.setVisibility(View.VISIBLE);
+        dealButton.setVisibility(View.VISIBLE);
+        standButton.setVisibility(View.INVISIBLE);
+        doubleButton.setVisibility(View.INVISIBLE);
+        hitButton.setVisibility(View.INVISIBLE);
+        dealerTotalInt = 0;
+        playerTotalInt = 0;
 
+    }
 
 
 }// end class game screen
