@@ -1073,11 +1073,13 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void updatePlayerTotalLabel() {
+        adjustAces();
         playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4 + cardValueP5;
         playerTotal.setText("Total: " + playerTotalInt);
     }
 
     public void updateDealerTotalLabel() {
+        adjustAces();
         dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4 + cardValueD5;
         dealerTotal.setText("Total: " + dealerTotalInt);
     }
