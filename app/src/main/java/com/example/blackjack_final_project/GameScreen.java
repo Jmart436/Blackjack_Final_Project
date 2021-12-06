@@ -318,7 +318,7 @@ public class GameScreen extends AppCompatActivity {
                         break;
                     case 3:
                         dealCardsP5();
-                        generateTotals();
+                        generateP5();
                         adjustAces();
                         checkBlackJack();
                         checkBust();
@@ -619,6 +619,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         changeThisName = suitConversion + cardValueD4;
         dealerCard5.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
+        generateD5();
         checkEndGame();
 
 
@@ -903,7 +904,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     } // End generateP4
 
-    /*
+
     public void generateP5(){
         switch (cardValueP5) {
             case 1: // Ace
@@ -919,7 +920,7 @@ public class GameScreen extends AppCompatActivity {
         updatePlayerTotalLabel();
         playerTotal.setVisibility(View.VISIBLE);
     }
-     */
+
     public void generateCardValue(){
         // For Dealer
         switch (cardValue) {
@@ -985,7 +986,7 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
     } // end generateD4
 
-    /*
+
     public void generateD5(){
         switch (cardValueD5) {
             case 1: // Ace
@@ -1003,7 +1004,7 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
-     */
+
 
 
     // Updates and Displays Bank TextView
