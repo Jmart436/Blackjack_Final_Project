@@ -776,7 +776,6 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setText("Total: " + String.valueOf(playerTotalInt));
         switch (cardValue){
             case 1: // Ace
-                if (dealerTotalInt> 21){
                 if (dealerTotalInt > 21){
                     cardValue = 1;
                 }
