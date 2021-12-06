@@ -1250,7 +1250,7 @@ public class GameScreen extends AppCompatActivity {
             bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
             bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
         }
-        customBet = 0;
+        //customBet = 0;
     }// end addWinnings to function
     public void pushEarnings(){
         if (Euro == true) {
@@ -1264,7 +1264,7 @@ public class GameScreen extends AppCompatActivity {
             bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
             bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
         }
-        customBet = 0;
+        //customBet = 0;
     }
 
     public void resetGame() {
@@ -1280,7 +1280,7 @@ public class GameScreen extends AppCompatActivity {
         dealerCard5.setImageDrawable(null);
         dealerTotal.setText(null);
         playerTotal.setText(null);
-        customBet = 0;
+        //customBet = 0;
         betSeekbar.setVisibility(View.VISIBLE);
         dealButton.setVisibility(View.VISIBLE);
         standButton.setVisibility(View.INVISIBLE);
