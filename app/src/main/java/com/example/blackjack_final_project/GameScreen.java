@@ -25,6 +25,7 @@ import android.widget.Toolbar;
 import java.util.Random;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.NumberFormat;
@@ -43,13 +44,13 @@ public class GameScreen extends AppCompatActivity {
     public int cardValueD2; // int for assigned face value of card
     public int cardValueD3; // int for assigned face value of card
     public int cardValueD4; // int for assigned face value of card
-    public int cardValueD5;
+    public int cardValueD5; // int for assigned face value of card
     public int cardSuitP1; // int for assigned suit of card
     public int cardValueP1; // int for assigned face value of card
     public int cardValueP2; // int for assigned face value of card
     public int cardValueP3; // int for assigned face value of card
     public int cardValueP4; // int for assigned face value of card
-    public int cardValueP5;
+    public int cardValueP5; // int for assigned face value of card
     public int cardSuitP2; // int for assigned suit of card
     public String suitConversion;
     public String changeThisName;
@@ -147,13 +148,14 @@ public class GameScreen extends AppCompatActivity {
         updateBank();
         updateBet();
 
+        //sets max for seekbar
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
 
         // DEAL
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(bankAmountTotalString) != 0) {
+                if (Integer.parseInt(bankAmountTotalString) != 0) { // if total bank amount is zero
 
                     // Subtract customBet from Bank
                     if (Euro == true) { // If Euros
@@ -161,7 +163,7 @@ public class GameScreen extends AppCompatActivity {
                     } else { // If Dollars
                         bankAmountDollarTotal = bankAmountDollarTotal - customBet;
                     }
-                    updateBank();
+                    updateBank(); // update bank
                     playCounter += 1; // adds one to play counter
 
                     // P1
@@ -177,7 +179,7 @@ public class GameScreen extends AppCompatActivity {
                         public void run() {
                             dealCardsP2();
                             // card sound
-                            card.start();
+                            card.start(); //start sound
                         }
                     }, 500);
 
@@ -185,7 +187,7 @@ public class GameScreen extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            dealCardD1();
+                            dealCardD1(); // displays card 1
                             // card sound
                             card.start();
                         }
@@ -262,7 +264,7 @@ public class GameScreen extends AppCompatActivity {
                 else{
 
                 }
-
+                // if less than 17 and 3 cards are shown
                 if (dealerTotalInt < 17 && dealerCardCounter == 3) {
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -280,7 +282,7 @@ public class GameScreen extends AppCompatActivity {
                     }, 500);
 
                 } // end if less than 17
-
+                // if less than 17 and 4 cards shown
                 if (dealerTotalInt < 17 && dealerCardCounter == 4) {
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -298,8 +300,6 @@ public class GameScreen extends AppCompatActivity {
                     }, 500);
 
                 } // end if less than 17
-
-
 
             }// end on click
         });
@@ -385,8 +385,8 @@ public class GameScreen extends AppCompatActivity {
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hitButtonClickCounter += 1;
-                switch (hitButtonClickCounter) {
+                hitButtonClickCounter += 1; // adds one to click counter
+                switch (hitButtonClickCounter) { // how many times has the hit button been clicked
                     case 1:
                         dealCardsP3();
                         // card sound
@@ -441,7 +441,9 @@ public class GameScreen extends AppCompatActivity {
     }// end on create
 
     //saving state when rotated
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("dealerTotalInt", dealerTotalInt);
         savedInstanceState.putInt("playerTotalInt", playerTotalInt);
@@ -455,19 +457,21 @@ public class GameScreen extends AppCompatActivity {
         savedInstanceState.putInt("cardValueP3", cardValueP3);
         savedInstanceState.putInt("cardValueP4", cardValueP4);
         savedInstanceState.putInt("cardValueP5", cardValueP5);
-       savedInstanceState.putInt("hitButtonClickCounter", hitButtonClickCounter);
-       savedInstanceState.putInt("doubleButtonCounter", doubleButtonCounter);
-       savedInstanceState.putInt("playCounter", playCounter);
-       savedInstanceState.putInt("customBet", customBet);
-       savedInstanceState.putString("suitConversion", suitConversion);
-       savedInstanceState.putString("betTextview", betTextView.getText().toString());
-       savedInstanceState.putString("dealerTotal", dealerTotal.getText().toString());
-       savedInstanceState.putString("playerTotal", playerTotal.getText().toString());
+        savedInstanceState.putInt("hitButtonClickCounter", hitButtonClickCounter);
+        savedInstanceState.putInt("doubleButtonCounter", doubleButtonCounter);
+        savedInstanceState.putInt("playCounter", playCounter);
+        savedInstanceState.putInt("customBet", customBet);
+        savedInstanceState.putString("suitConversion", suitConversion);
+        savedInstanceState.putString("betTextview", betTextView.getText().toString());
+        savedInstanceState.putString("dealerTotal", dealerTotal.getText().toString());
+        savedInstanceState.putString("playerTotal", playerTotal.getText().toString());
+
     }// end save state
 
     // restore state
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-
+        super.onRestoreInstanceState(savedInstanceState);
         dealerTotalInt = savedInstanceState.getInt("dealerTotalInt");
         playerTotalInt = savedInstanceState.getInt("playerTotalInt");
         cardValue = savedInstanceState.getInt("cardValue");
@@ -488,12 +492,7 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setText(savedInstanceState.getString("dealerTotal"));
         playerTotal.setText(savedInstanceState.getString("playerTotal"));
 
-
-
-
-
     }// end restore state
-
 
         // Seekbar for customizing bets
     public OnSeekBarChangeListener betSeekbarListener = new OnSeekBarChangeListener() {
@@ -550,7 +549,7 @@ public class GameScreen extends AppCompatActivity {
             MediaPlayer lose = MediaPlayer.create(GameScreen.this, R.raw.lose);
             lose.start();
 
-
+            // makes buttons invisible
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -575,6 +574,7 @@ public class GameScreen extends AppCompatActivity {
             MediaPlayer win = MediaPlayer.create(GameScreen.this, R.raw.win);
             win.start();
 
+            // makes buttons invisible
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -593,7 +593,7 @@ public class GameScreen extends AppCompatActivity {
             // lose sound
             MediaPlayer lose = MediaPlayer.create(GameScreen.this, R.raw.lose);
             lose.start();
-
+            // makes buttons invisible
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -631,8 +631,10 @@ public class GameScreen extends AppCompatActivity {
 
     public void checkLose()
     {
+        // if dealer gas more than player but less then 21
         if (dealerTotalInt > playerTotalInt && dealerTotalInt <= 21) {
             //lose
+            // toast image
             ImageView loseDisplay = new ImageView(getApplicationContext());
             loseDisplay.setImageResource(R.drawable.lose); //  TODO: CHANGE THIS PICTURE
             Toast toast = new Toast(getApplicationContext());
@@ -643,21 +645,19 @@ public class GameScreen extends AppCompatActivity {
             // lose sound
             MediaPlayer lose = MediaPlayer.create(GameScreen.this, R.raw.lose);
             lose.start();
-
+            // makes buttons imvisible
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
             doubleButton.setVisibility(View.INVISIBLE);
             hitButton.setVisibility(View.INVISIBLE);
             updateBank();
-
-
         }// end if lose
 
     }// end endGameCheck
 
     // Push
-    public void checkPush() {
+    public void checkPush() { // check for a tie
         if (playerTotalInt == dealerTotalInt) {
             // Push
             ImageView pushDisplay = new ImageView(getApplicationContext());
@@ -669,7 +669,7 @@ public class GameScreen extends AppCompatActivity {
             // Add Winnings to Bank
             pushEarnings();
 
-
+            // males buttons visible
             resetButton.setVisibility(View.VISIBLE);
             resetButton.setVisibility(View.VISIBLE);
             standButton.setVisibility(View.INVISIBLE);
@@ -688,7 +688,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValue = new Random();
         cardSuit = 1 + randomSuit.nextInt(4);
         cardValue = 1 + randomValue.nextInt(13);
-        switch (cardSuit) {
+        switch (cardSuit) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -715,7 +715,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValue2 = new Random();
         cardSuitD2 = 1 + randomSuit2.nextInt(4);
         cardValueD2 = 1 + randomValue2.nextInt(13);
-        switch (cardSuitD2) {
+        switch (cardSuitD2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -744,7 +744,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValue2 = new Random();
         cardSuitD2 = 1 + randomSuit2.nextInt(4);
         cardValueD3 = 1 + randomValue2.nextInt(13);
-        switch (cardSuitD2) {
+        switch (cardSuitD2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -761,26 +761,6 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueD3;
         dealerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateD3();
-        //checkEndGame();
-
-
-        // Checks to see if D4 needs to be drawn
-        /*
-        if (dealerTotalInt < 17) {
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dealCardsD4();
-                    // For Sound
-                    MediaPlayer card = MediaPlayer.create(GameScreen.this, R.raw.card);
-                    card.start();
-                }
-            }, 500);
-        }
-
-
-         */
     }// end deal cards D3
 
     // D4
@@ -791,7 +771,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValue2 = new Random();
         cardSuitD2 = 1 + randomSuit2.nextInt(4);
         cardValueD4 = 1 + randomValue2.nextInt(13);
-        switch (cardSuitD2) {
+        switch (cardSuitD2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -810,22 +790,6 @@ public class GameScreen extends AppCompatActivity {
         generateD4();
         checkEndGame();
 
-        /*
-        // Checks to see if D5 needs to be drawn
-        if (dealerTotalInt < 17) {
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dealCardsD5();
-                    // For Sound
-                    MediaPlayer card = MediaPlayer.create(GameScreen.this, R.raw.card);
-                    card.start();
-                }
-            }, 500);
-        }
-         */
-
     }// end deal cards D4
 
     public void dealCardsD5() {
@@ -835,7 +799,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValue2 = new Random();
         cardSuitD2 = 1 + randomSuit2.nextInt(4);
         cardValueD5 = 1 + randomValue2.nextInt(13);
-        switch (cardSuitD2) {
+        switch (cardSuitD2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -864,7 +828,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValueP1 = new Random();
         cardSuitP1 = 1 + randomSuitP1.nextInt(4);
         cardValueP1 = 1 + randomValueP1.nextInt(13);
-        switch (cardSuitP1) {
+        switch (cardSuitP1) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -878,30 +842,6 @@ public class GameScreen extends AppCompatActivity {
                 suitConversion = "s";
                 break;
         }// end switch
-        /* animates cards
-        final ObjectAnimator card1 = ObjectAnimator.ofFloat(R.drawable.cardback, "card_flip", 1f, 0f);
-        card1.setInterpolator(new DecelerateInterpolator());
-        final ObjectAnimator card2 = ObjectAnimator.ofFloat(playerCard1, "scaleX", 0f, 1f);
-        card2.setInterpolator(new AccelerateDecelerateInterpolator());
-        card1.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                super.onAnimationStart(animation);
-                playerCard1.setImageResource(R.drawable.cardback);
-            }
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                playerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
-                card2.setDuration(500);
-                card2.start();
-            }// end on animation end
-        });
-        card1.setDuration(500);
-
-        card1.start();
-
-         */
         changeThisName = suitConversion + cardValueP1; // creates a string to access image resouce file
         playerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateP1();
@@ -916,7 +856,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValueP2 = new Random();
         cardSuitP2 = 1 + randomSuitP2.nextInt(4);
         cardValueP2 = 1 + randomValueP2.nextInt(13);
-        switch (cardSuitP2) {
+        switch (cardSuitP2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -944,7 +884,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValueP3 = new Random();
         cardSuitP2 = 1 + randomSuitP3.nextInt(4);
         cardValueP3 = 1 + randomValueP3.nextInt(13);
-        switch (cardSuitP2) {
+        switch (cardSuitP2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -973,7 +913,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValueP2 = new Random();
         cardSuitP2 = 1 + randomSuitP2.nextInt(4);
         cardValueP4 = 1 + randomValueP2.nextInt(13);
-        switch (cardSuitP2) {
+        switch (cardSuitP2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -1000,7 +940,7 @@ public class GameScreen extends AppCompatActivity {
         Random randomValueP2 = new Random();
         cardSuitP2 = 1 + randomSuitP2.nextInt(4);
         cardValueP5 = 1 + randomValueP2.nextInt(13);
-        switch (cardSuitP2) {
+        switch (cardSuitP2) { // converts suit from number to letter
             case 1:
                 suitConversion = "c";
                 break;
@@ -1050,7 +990,7 @@ public class GameScreen extends AppCompatActivity {
             cardValueP4 = 1;
             updatePlayerTotalLabel();
         }
-
+        // dealers
         if (dealerTotalInt > 21 && cardValue == 11) {
             cardValue = 1;
             updateDealerTotalLabel();
@@ -1072,7 +1012,7 @@ public class GameScreen extends AppCompatActivity {
 
     // generateP1
     public void generateP1(){
-        // P1
+        // P1 adds value to face cards
         switch (cardValueP1) {
             case 10:
             case 11:
@@ -1088,6 +1028,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     } // End generateP1
 
+// adds value to face cards
     public void generateP2(){
         switch (cardValueP2) {
             case 1: // Ace
@@ -1104,6 +1045,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     } // End generateP2
 
+    // adds value to face cards
     public void generateP3(){
         switch (cardValueP3) {
             case 1: // Ace
@@ -1120,6 +1062,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     } // End generateP3
 
+    // adds value to face cards
     public void generateP4(){
         switch (cardValueP4) {
             case 1: // Ace
@@ -1136,7 +1079,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     } // End generateP4
 
-
+    // adds value to face cards
     public void generateP5(){
         switch (cardValueP5) {
             case 1: // Ace
@@ -1153,6 +1096,7 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     }
 
+    // adds value to face cards
     public void generateCardValue(){
         // For Dealer
         switch (cardValue) {
@@ -1170,6 +1114,7 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
     } // end generateCardValue
 
+    // adds value to face cards
     public void generateD2(){
         switch (cardValueD2) {
             case 1: // Ace
@@ -1186,6 +1131,7 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
     } // end generateD2
 
+    // adds value to face cards
     public void generateD3(){
         switch (cardValueD3) {
             case 1: // Ace
@@ -1202,6 +1148,7 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
     } // end generateD3
 
+    // adds value to face cards
     public void generateD4(){
         switch (cardValueD4) {
             case 1: // Ace
@@ -1219,6 +1166,7 @@ public class GameScreen extends AppCompatActivity {
     } // end generateD4
 
 
+    // adds value to face cards
     public void generateD5(){
         switch (cardValueD5) {
             case 1: // Ace
@@ -1273,8 +1221,8 @@ public class GameScreen extends AppCompatActivity {
             dollarBank = bankAmountDollarTotal;
 
 
-        }
-        //customBet = 0;
+        }// end else
+
     }// end addWinnings to function
     public void pushEarnings(){
         if (Euro == true) {
@@ -1287,9 +1235,8 @@ public class GameScreen extends AppCompatActivity {
             bankAmountDollarTotal = bankAmountDollarTotal + customBet;
             bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
             bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
-        }
-        //customBet = 0;
-    }
+        }// end else
+    }// end push earnings
 
     public void resetGame() {
         playerCard1.setImageDrawable(null);
@@ -1304,7 +1251,6 @@ public class GameScreen extends AppCompatActivity {
         dealerCard5.setImageDrawable(null);
         dealerTotal.setText(null);
         playerTotal.setText(null);
-        //customBet = 0;
         betSeekbar.setVisibility(View.VISIBLE);
         dealButton.setVisibility(View.VISIBLE);
         standButton.setVisibility(View.INVISIBLE);
@@ -1327,21 +1273,20 @@ public class GameScreen extends AppCompatActivity {
         doubleButtonCounter = 0;
         playCounter = 0;
         dealerCardCounter = 0;
-
-    }
+    }// end reset game
 
     public void updatePlayerTotalLabel() {
         adjustAces();
         playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4 + cardValueP5;
         playerTotal.setText("Total: " + playerTotalInt);
-    }
+    }// end update playerTotalLabel
 
     public void updateDealerTotalLabel() {
         adjustAces();
         dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4 + cardValueD5;
         dealerTotal.setText("Total: " + dealerTotalInt);
         checkPush();
-    }
+    } // end updateDealerTotalLabel
 
     public void checkEndGame(){
         updatePlayerTotalLabel();
@@ -1351,9 +1296,7 @@ public class GameScreen extends AppCompatActivity {
         checkLose();
         checkWin();
         checkBust();
-
-    }
-
+    }// end check end game
 
 }// end class game screen
 
