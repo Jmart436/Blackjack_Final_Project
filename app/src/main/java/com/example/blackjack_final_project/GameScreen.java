@@ -320,7 +320,7 @@ public class GameScreen extends AppCompatActivity {
         endGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endGame();
+                resetGame();
                 Intent intent = new Intent(GameScreen.this, MainActivity.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_main);
@@ -434,7 +434,8 @@ public class GameScreen extends AppCompatActivity {
 
     }// end check win
 
-    public void checkLose() {
+    public void checkLose()
+    {
         if (dealerTotalInt > playerTotalInt && dealerTotalInt <= 21) {
             //lose
             ImageView loseDisplay = new ImageView(getApplicationContext());
@@ -884,14 +885,6 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
         playerTotal.setVisibility(View.VISIBLE);
     }// end updatePlayerTotal
-
-    // Resets Card Counters, Player Bet, and Double Button Counter
-    public void endGame() {
-        playerCardCounter = 0;
-        dealerCardCounter = 0;
-        customBet = 0;
-        doubleButtonCounter = 0;
-    }
 
     // Removes all cards from table\
     public void gameDone() {
