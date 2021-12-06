@@ -196,7 +196,7 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dealCardsD2();
-                updatePlayerTotal();
+
                 dealersTurn();
                 checkLose();
                 checkWin();
@@ -472,7 +472,7 @@ public class GameScreen extends AppCompatActivity {
             }// end switch
             changeThisName = suitConversion + cardValueD2;
             dealerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
-            //updatePlayerTotal();
+            updatePlayerTotal();
 
     }// end deal cards D2
 
@@ -674,6 +674,14 @@ public class GameScreen extends AppCompatActivity {
     // Updates Player Total
     public void updatePlayerTotal(){ // updates total of cards on the table
         switch (cardValueP1){
+            case 1: // Ace
+                if (playerTotalInt > 21){
+                    cardValueP1 = 1;
+                }
+                else{
+                    cardValueP1 = 11;
+                }
+                break;
             case 10:
             case 11:
             case 12:
@@ -683,6 +691,14 @@ public class GameScreen extends AppCompatActivity {
             default:
         }// end switch
         switch (cardValueP2){
+            case 1: // Ace
+                if (playerTotalInt > 21){
+                    cardValueP2 = 1;
+                }
+                else{
+                    cardValueP2 = 11;
+                }
+                break;
             case 10:
             case 11:
             case 12:
@@ -694,6 +710,14 @@ public class GameScreen extends AppCompatActivity {
         playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4;
         playerTotal.setText("Total: " + String.valueOf(playerTotalInt));
         switch (cardValue){
+            case 1: // Ace
+                if (playerTotalInt > 21){
+                    cardValue = 1;
+                }
+                else{
+                    cardValue = 11;
+                }
+                break;
             case 10:
             case 11:
             case 12:
@@ -703,6 +727,14 @@ public class GameScreen extends AppCompatActivity {
             default:
         }// end switch
         switch (cardValueD2){
+            case 1: // Ace
+                if (playerTotalInt > 21){
+                    cardValueD2 = 1;
+                }
+                else{
+                    cardValueD2 = 11;
+                }
+                break;
             case 10:
             case 11:
             case 12:
