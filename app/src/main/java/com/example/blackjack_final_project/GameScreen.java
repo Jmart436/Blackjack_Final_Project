@@ -460,22 +460,29 @@ public class GameScreen extends AppCompatActivity {
     // restore state
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
 
-        savedInstanceState.getInt("dealerTotalInt");
-        savedInstanceState.getInt("playerTotalInt");
-        savedInstanceState.getInt("cardValue");
-        savedInstanceState.getInt("cardValueD2");
-        savedInstanceState.getInt("cardValueD3");
-        savedInstanceState.getInt("cardValueD4");
-        savedInstanceState.getInt("cardValueD5");
-        savedInstanceState.getInt("cardValueP1");
-        savedInstanceState.getInt("cardValueP2");
-        savedInstanceState.getInt("cardValueP3");
-        savedInstanceState.getInt("cardValueP4");
-        savedInstanceState.getInt("cardValueP5");
-        savedInstanceState.getInt("hitButtonClickCounter");
-        savedInstanceState.getInt("doubleButtonCounter");
-        savedInstanceState.getInt("playCounter");
-        savedInstanceState.getInt("customBet");
+        dealerTotalInt = savedInstanceState.getInt("dealerTotalInt");
+        playerTotalInt = savedInstanceState.getInt("playerTotalInt");
+        cardValue = savedInstanceState.getInt("cardValue");
+        cardValueD2 = savedInstanceState.getInt("cardValueD2");
+        cardValueD3 = savedInstanceState.getInt("cardValueD3");
+        cardValueD4 = savedInstanceState.getInt("cardValueD4");
+        cardValueD5 = savedInstanceState.getInt("cardValueD5");
+        cardValueP1 = savedInstanceState.getInt("cardValueP1");
+        cardValueP2 = savedInstanceState.getInt("cardValueP2");
+        cardValueP3 = savedInstanceState.getInt("cardValueP3");
+        cardValueP4 = savedInstanceState.getInt("cardValueP4");
+        cardValueP5 = savedInstanceState.getInt("cardValueP5");
+        hitButtonClickCounter = savedInstanceState.getInt("hitButtonClickCounter");
+        doubleButtonCounter = savedInstanceState.getInt("doubleButtonCounter");
+        playCounter = savedInstanceState.getInt("playCounter");
+        customBet = savedInstanceState.getInt("customBet");
+        betTextView.setText(savedInstanceState.getString("betTextView"));
+        dealerTotal.setText(savedInstanceState.getString("dealerTotal"));
+        playerTotal.setText(savedInstanceState.getString("playerTotal"));
+
+
+
+
 
     }// end restore state
 
