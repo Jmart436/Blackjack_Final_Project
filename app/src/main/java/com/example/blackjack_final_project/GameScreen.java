@@ -142,7 +142,6 @@ public class GameScreen extends AppCompatActivity {
                     bankAmountDollarTotal = bankAmountDollarTotal -customBet;
                 }
                 updateBank();
-
                 playCounter += 1; // adds one to play counter
 
                 // P1
@@ -171,7 +170,9 @@ public class GameScreen extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        dealCardsD2(); // calls deal cards player card 1
+
+                        dealerCard2.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
+
                     }
                 }, 1500);
 
@@ -423,7 +424,6 @@ public class GameScreen extends AppCompatActivity {
     // D1
     public void dealCardD1() {
         // dealer card 1
-        dealerCard1.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
         dealerCardCounter += 1;
         Random randomSuit = new Random();
         Random randomValue = new Random();
@@ -498,7 +498,6 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         changeThisName = suitConversion + cardValueD3;
         dealerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
-
     }// end deal cards D3
 
     // D4
