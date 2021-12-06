@@ -125,6 +125,9 @@ public class GameScreen extends AppCompatActivity {
         playerCard4 = (ImageView) findViewById(R.id.player_card_4);
         playerCard5 = (ImageView) findViewById(R.id.player_card_5) ;
 
+        // For Sound
+        MediaPlayer card = MediaPlayer.create(GameScreen.this, R.raw.card);
+
         // Sets Stand, Double, Hit, and Split as Invisible
         standButton.setVisibility(View.INVISIBLE);
         doubleButton.setVisibility(View.INVISIBLE);
@@ -154,7 +157,8 @@ public class GameScreen extends AppCompatActivity {
                 // P1
                 final Handler handler = new Handler(Looper.getMainLooper());
                 dealCardsP1();
-                // player card sound
+                // card sound
+                card.start();
 
 
                 // P2
@@ -162,6 +166,8 @@ public class GameScreen extends AppCompatActivity {
                     @Override
                     public void run() {
                         dealCardsP2();
+                        // card sound
+                        card.start();
                     }
                 }, 500);
 
@@ -170,6 +176,8 @@ public class GameScreen extends AppCompatActivity {
                     @Override
                     public void run() {
                         dealCardD1();
+                        // card sound
+                        card.start();
                     }
                 }, 1000);
 
@@ -179,6 +187,8 @@ public class GameScreen extends AppCompatActivity {
                     @Override
                     public void run() {
                         dealerCard2.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
+                        // card sound
+                        card.start();
                     }
                 }, 1500);
 
@@ -202,6 +212,8 @@ public class GameScreen extends AppCompatActivity {
                 final Handler handler = new Handler(Looper.getMainLooper());
                 // D2
                 dealCardsD2();
+                // For Sound
+                card.start();
                 // D3
                 if (dealerTotalInt < 17) {
                     handler.postDelayed(new Runnable() {
@@ -209,6 +221,8 @@ public class GameScreen extends AppCompatActivity {
                         public void run() {
                             dealCardsD3();
                             adjustAces();
+                            // card sound
+                            card.start();
                         }
                     }, 500);
 
@@ -307,6 +321,8 @@ public class GameScreen extends AppCompatActivity {
                 switch (hitButtonClickCounter) {
                     case 1:
                         dealCardsP3();
+                        // card sound
+                        card.start();
                         generateP3();
                         adjustAces();
                         checkBlackJack();
@@ -314,6 +330,8 @@ public class GameScreen extends AppCompatActivity {
                         break;
                     case 2:
                         dealCardsP4();
+                        // card sound
+                        card.start();
                         generateP4();
                         adjustAces();
                         checkBlackJack();
@@ -321,10 +339,13 @@ public class GameScreen extends AppCompatActivity {
                         break;
                     case 3:
                         dealCardsP5();
+                        // card sound
+                        card.start();
                         generateP5();
                         adjustAces();
                         checkBlackJack();
                         checkBust();
+                        break;
                 }// end switch
             }// end onclick Hit
         });
@@ -569,6 +590,7 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueD2;
         dealerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateD2();
+
         checkBlackJack();
     }// end deal cards D2
 
@@ -607,6 +629,9 @@ public class GameScreen extends AppCompatActivity {
                 @Override
                 public void run() {
                     dealCardsD4();
+                    // For Sound
+                    MediaPlayer card = MediaPlayer.create(GameScreen.this, R.raw.card);
+                    card.start();
                 }
             }, 500);
         }
@@ -639,6 +664,20 @@ public class GameScreen extends AppCompatActivity {
         dealerCard4.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateD4();
         checkEndGame();
+
+        // Checks to see if D5 needs to be drawn
+        if (dealerTotalInt < 17) {
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dealCardsD5();
+                    // For Sound
+                    MediaPlayer card = MediaPlayer.create(GameScreen.this, R.raw.card);
+                    card.start();
+                }
+            }, 500);
+        }
 
 
     }// end deal cards D4
