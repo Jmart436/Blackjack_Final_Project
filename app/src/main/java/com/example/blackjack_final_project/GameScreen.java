@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -141,14 +142,40 @@ public class GameScreen extends AppCompatActivity {
                     bankAmountDollarTotal = bankAmountDollarTotal -customBet;
                 }
                 updateBank();
-
                 playCounter += 1; // adds one to play counter
+
+                // P1
                 dealCardsP1(); // calls deal cards player card 1
-                dealCardsP2(); // calls deal cards player card 2
-                if (playerCard2 == playerCard1){
-                    dealCardsP2();
-                }// cards cannot equal
-                dealCardD1(); //calls deal cards dealer card 2
+                // P2
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dealCardsP2(); // calls deal cards player card 2
+                        if (playerCard2 == playerCard1){
+                            dealCardsP2();
+                        }// cards cannot equal
+                    }
+                }, 500);
+
+                // D1
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dealCardsD1(); // calls deal cards player card 1
+                    }
+                }, 1000);
+
+                //D2
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dealCardsD2(); // calls deal cards player card 1
+                    }
+                }, 1500);
+
+
+
                 updatePlayerTotal(); // updates player totals
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
                 betSeekbar.setVisibility(View.INVISIBLE); // removes bet seekbar
@@ -379,11 +406,10 @@ public class GameScreen extends AppCompatActivity {
     }// end endGameCheck
 
 
-
-    //method to deal cards
-    public void dealCardD1() {
+    // D1
+    public void dealCardsD1() {
         // dealer card 1
-        dealerCard2.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
+        dealerCard1.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
         dealerCardCounter += 1;
         Random randomSuit = new Random();
         Random randomValue = new Random();
@@ -403,9 +429,11 @@ public class GameScreen extends AppCompatActivity {
                 suitConversion = "s";
                 break;
         }// end switch
-        changeThisName = suitConversion + cardValue; // creates a string to access image resouce file
-        dealerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
+        //changeThisName = suitConversion + cardValue; // creates a string to access image resouce file
+        //dealerCard1.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
     }// end deal D1
+
+    // D2
     public void dealCardsD2(){
         // dealer card 2
         dealerCardCounter += 1;
@@ -431,6 +459,8 @@ public class GameScreen extends AppCompatActivity {
             dealerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
 
     }// end deal cards D2
+
+    // D3
     public void dealCardsD3(){
         // dealer card 2
         dealerCardCounter += 1;
@@ -456,6 +486,8 @@ public class GameScreen extends AppCompatActivity {
         dealerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
 
     }// end deal cards D3
+
+    // D4
     public void dealCardsD4(){
         // dealer card 2
         dealerCardCounter += 1;
@@ -482,8 +514,8 @@ public class GameScreen extends AppCompatActivity {
 
     }// end deal cards D4
 
+    // P1
     public void dealCardsP1() {
-        //P1
         playerCardCounter += 1;
         Random randomSuitP1 = new Random();
         Random randomValueP1 = new Random();
@@ -532,6 +564,7 @@ public class GameScreen extends AppCompatActivity {
 
     }// end deal P1
 
+    // P2
     public void dealCardsP2() {
         // player card 2
         playerCardCounter += 1;
@@ -556,6 +589,8 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueP2; // creates a string to access image resouce file
         playerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
     }// end deal cards P2
+
+    // P3
     public void dealCardsP3() {
         // player card 3
         playerCardCounter += 1;
@@ -580,6 +615,8 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueP3; // creates a string to access image resouce file
         playerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
     }// end deal cards P3
+
+    // P4
     public void dealCardsP4() {
         // player card 3
         playerCardCounter += 1;
@@ -726,6 +763,7 @@ public class GameScreen extends AppCompatActivity {
         }
         customBet = 0;
     }
+
 
 
 }// end class game screen
