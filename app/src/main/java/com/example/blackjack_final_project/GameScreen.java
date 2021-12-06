@@ -193,7 +193,6 @@ public class GameScreen extends AppCompatActivity {
                 checkWin();
                 checkBust();
                 checkBlackJack();
-                checkPush();
 
                 // D3
                 if (dealerTotalInt < 17) {
@@ -257,6 +256,7 @@ public class GameScreen extends AppCompatActivity {
                                 updatePlayerTotal();
                                 checkLose();
                                 checkWin();
+                                checkPush();
                             }
 
                             else{
@@ -732,6 +732,7 @@ public class GameScreen extends AppCompatActivity {
 
     // Updates Player Total
     public void updatePlayerTotal(){ // updates total of cards on the table
+        // For Player
         switch (cardValueP1){
             case 1: // Ace
                 if (playerTotalInt > 21){
@@ -766,8 +767,45 @@ public class GameScreen extends AppCompatActivity {
                 break;
             default:
         }// end switch
+        switch (cardValueP3){
+            case 1: // Ace
+                if (playerTotalInt > 21){
+                    cardValueP3 = 1;
+                }
+                else{
+                    cardValueP3 = 11;
+                }
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                cardValueP3 = 10;
+                break;
+            default:
+        }// end switch
+        switch (cardValueP4){
+            case 1: // Ace
+                if (playerTotalInt > 21){
+                    cardValueP4 = 1;
+                }
+                else{
+                    cardValueP4 = 11;
+                }
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                cardValueP4 = 10;
+                break;
+            default:
+        }// end switch
+
         playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4;
         playerTotal.setText("Total: " + String.valueOf(playerTotalInt));
+
+        // For Dealer
         switch (cardValue){
             case 1: // Ace
                 if (dealerTotalInt > 21){
@@ -799,6 +837,40 @@ public class GameScreen extends AppCompatActivity {
             case 12:
             case 13:
                 cardValueD2 = 10;
+                break;
+            default:
+        }// end switch
+        switch (cardValueD3){
+            case 1: // Ace
+                if (dealerTotalInt > 21){
+                    cardValueD3 = 1;
+                }
+                else{
+                    cardValueD3 = 11;
+                }
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                cardValueD3 = 10;
+                break;
+            default:
+        }// end switch
+        switch (cardValueD4){
+            case 1: // Ace
+                if (dealerTotalInt > 21){
+                    cardValueD4 = 1;
+                }
+                else{
+                    cardValueD4 = 11;
+                }
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                cardValueD4 = 10;
                 break;
             default:
         }// end switch
