@@ -223,6 +223,16 @@ public class GameScreen extends AppCompatActivity {
                 dealCardsD2();
                 // For Sound
                 card.start();
+
+               // Only check if Dealer total is 17 or greater
+                if (dealerTotalInt >= 17){
+                    checkWin();
+                    checkLose();
+                    checkPush();
+                    checkBust();
+                    checkBlackJack();
+                }
+
                 // D3
                 if (dealerTotalInt < 17 && dealerCardCounter == 2) {
                     handler.postDelayed(new Runnable() {
@@ -232,6 +242,11 @@ public class GameScreen extends AppCompatActivity {
                             adjustAces();
                             // card sound
                             card.start();
+                            checkWin();
+                            checkLose();
+                            checkPush();
+                            checkBust();
+                            checkBlackJack();
                         }
                     }, 500);
 
@@ -248,6 +263,11 @@ public class GameScreen extends AppCompatActivity {
                             adjustAces();
                             // card sound
                             card.start();
+                            checkWin();
+                            checkLose();
+                            checkPush();
+                            checkBust();
+                            checkBlackJack();
                         }
                     }, 500);
 
@@ -261,13 +281,16 @@ public class GameScreen extends AppCompatActivity {
                             adjustAces();
                             // card sound
                             card.start();
+                            checkWin();
+                            checkLose();
+                            checkPush();
+                            checkBust();
+                            checkBlackJack();
                         }
                     }, 500);
 
                 } // end if less than 17
-                    checkLose();
-                    checkWin();
-                    checkPush();
+
 
 
             }// end on click
@@ -772,6 +795,7 @@ public class GameScreen extends AppCompatActivity {
         generateD4();
         checkEndGame();
 
+        /*
         // Checks to see if D5 needs to be drawn
         if (dealerTotalInt < 17) {
             final Handler handler = new Handler(Looper.getMainLooper());
@@ -785,7 +809,7 @@ public class GameScreen extends AppCompatActivity {
                 }
             }, 500);
         }
-
+         */
 
     }// end deal cards D4
 
@@ -1278,6 +1302,7 @@ public class GameScreen extends AppCompatActivity {
         hitButtonClickCounter = 0;
         doubleButtonCounter = 0;
         playCounter = 0;
+        dealerCardCounter = 0;
 
     }
 
