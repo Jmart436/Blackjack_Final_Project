@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -153,6 +154,8 @@ public class GameScreen extends AppCompatActivity {
                 // P1
                 final Handler handler = new Handler(Looper.getMainLooper());
                 dealCardsP1();
+                // player card sound
+
 
                 // P2
                 handler.postDelayed(new Runnable() {
@@ -1047,8 +1050,6 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
 
     }
-
-
 
 
     // Updates and Displays Bank TextView
