@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Use these variables when interacting with Bank total
     public static int bankAmountTotalInt = 0; // Total Bank Amount in Dollars
-    public int bankAmountEuro = CurrencyExchange.bankAmountEuro; // Total Bank Amount in Euros
+    public int bankAmountEuro = CurrencyExchange.euroBank; // Total Bank Amount in Euros
 
 
     // for updated bank after playing game
