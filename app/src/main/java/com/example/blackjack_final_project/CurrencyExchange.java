@@ -25,6 +25,12 @@ public class CurrencyExchange extends AppCompatActivity {
     public Button convertButton;
     public TextView bankAmountTextView;
 
+    // for better bank
+    public static int euroBank;
+    public static int dollarBank;
+
+    public int gameScreenDollars;
+    public int gameScreenEuros;
 
 
 
@@ -38,12 +44,32 @@ public class CurrencyExchange extends AppCompatActivity {
         // Allows player to add funds as Euros after conversion.
         bankAmountTotalEuro = bankAmountEuro + bankAmountEuroEntry;
 
+        euroBank = bankAmountTotalEuro;
+        dollarBank = bankAmountDollar;
+
+        gameScreenDollars = GameScreen.dollarBank;
+        gameScreenEuros = GameScreen.euroBank;
+
+
         // Displays bank amount in Euros or Dollars depending on Euro status
         if(Euro == true){
-            bankAmountTextView.setText("Bank : €" + bankAmountTotalEuro);
+            // havnt played yet
+            if(gameScreenEuros == 0){
+                bankAmountTextView.setText("Bank : €" + euroBank);
+            }
+            // already played and returning from game screen
+            else{
+                bankAmountTextView.setText("Bank: €" + gameScreenEuros);
+            }
         }
         else{
-            bankAmountTextView.setText("Bank : $" + bankAmountDollar);
+            if(gameScreenDollars == 0){
+                bankAmountTextView.setText("Bank : $" + dollarBank);
+            }
+            else{
+                bankAmountTextView.setText("Bank : $" + gameScreenDollars);
+            }
+
 
         }
 
@@ -55,16 +81,32 @@ public class CurrencyExchange extends AppCompatActivity {
 
                 // Dollar to Euro
                 if (Euro == false){
-                    bankAmountEuro = (int)(bankAmountDollar * DOLLAR2EURO);
-                    bankAmountTextView.setText("Bank: €" + bankAmountEuro);
-                    Euro = true;
+                    //havnt played yet
+                    if(gameScreenDollars == 0){
+                        euroBank = (int)(dollarBank * DOLLAR2EURO);
+                        bankAmountTextView.setText("Bank: €" + euroBank);
+                        Euro = true;
+                    }
+                    // already played, returning from game screen
+                    else{
+                        euroBank = (int)(gameScreenDollars * DOLLAR2EURO);
+                        bankAmountTextView.setText("Bank: €" + euroBank);
+                        Euro = true;
+                    }
                 }
                 // Euro to Dollar
                else{
-
-                   bankAmountDollar = (int)(bankAmountTotalEuro / DOLLAR2EURO);
-                   bankAmountTextView.setText("Bank: $" + bankAmountDollar);
-                   Euro = false;
+                   // havnt played yet
+                   if (gameScreenEuros == 0){
+                       dollarBank = (int)(euroBank / DOLLAR2EURO);
+                       bankAmountTextView.setText("Bank: $" + dollarBank);
+                       Euro = false;
+                   }
+                   else{
+                       dollarBank = (int)(gameScreenEuros / DOLLAR2EURO);
+                       bankAmountTextView.setText("Bank: $" + dollarBank);
+                       Euro = false;
+                   }
 
                 }
 

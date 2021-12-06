@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     public int gameScreenDollars;
     public int gameScreenEuros;
 
+    // Main screen bank
+    public static int mainEuroBank;
+    public static int mainDollarBank;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
