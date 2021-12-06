@@ -519,13 +519,7 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueD2;
         dealerCard2.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateTotals();
-
-        checkLose();
-        checkWin();
-        checkBust();
         checkBlackJack();
-        checkPush();
-
     }// end deal cards D2
 
     // D3
@@ -570,8 +564,6 @@ public class GameScreen extends AppCompatActivity {
                     dealCardsD4();
                 }
             }, 500);
-
-
         }
 
     }// end deal cards D3
@@ -601,12 +593,13 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueD4;
         dealerCard4.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateTotals();
-
+        adjustAces();
         checkLose();
         checkWin();
         checkBust();
         checkBlackJack();
         checkPush();
+
 
     }// end deal cards D4
 
@@ -804,7 +797,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueP1 = 10;
                 break;
-            default:
         }// end switch
         switch (cardValueP2) {
             case 1: // Ace
@@ -816,7 +808,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueP2 = 10;
                 break;
-            default:
         }// end switch
         switch (cardValueP3) {
             case 1: // Ace
@@ -828,7 +819,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueP3 = 10;
                 break;
-            default:
         }// end switch
         switch (cardValueP4) {
             case 1: // Ace
@@ -840,7 +830,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueP4 = 10;
                 break;
-            default:
         }// end switch
 
         updatePlayerTotalLabel();
@@ -857,7 +846,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValue = 10;
                 break;
-            default:
         }// end switch
         switch (cardValueD2) {
             case 1: // Ace
@@ -869,7 +857,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueD2 = 10;
                 break;
-            default:
         }// end switch
         switch (cardValueD3) {
             case 1: // Ace
@@ -881,7 +868,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueD3 = 10;
                 break;
-            default:
         }// end switch
         switch (cardValueD4) {
             case 1: // Ace
@@ -893,7 +879,6 @@ public class GameScreen extends AppCompatActivity {
             case 13:
                 cardValueD4 = 10;
                 break;
-            default:
         }// end switch
         updateDealerTotalLabel();
         dealerTotal.setVisibility(View.VISIBLE);
