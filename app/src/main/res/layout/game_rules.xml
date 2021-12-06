@@ -41,7 +41,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
         </LinearLayout>
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="10dp">
         <TextView
             android:id="@+id/beating_dealer_textView"
             android:layout_width="wrap_content"
@@ -203,6 +207,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/count_two_textView"
             app:layout_constraintVertical_bias="0.0" />
+</LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -168,7 +168,8 @@ public class GameScreen extends AppCompatActivity {
                 dealCardsD2();
                 updatePlayerTotal();
                 dealersTurn();
-                endGameCheck();
+                checkLose();
+                checkWin();
             }// end on click
         });
 
@@ -206,7 +207,8 @@ public class GameScreen extends AppCompatActivity {
                             updateBet();
                             dealCardsP3();
                             updatePlayerTotal();
-                            endGameCheck();
+                            checkLose();
+                            checkWin();
                         }
                     } // end if for Euro status
                     // If Dollar Status
@@ -227,7 +229,8 @@ public class GameScreen extends AppCompatActivity {
                             updateBet();
                             dealCardsP3();
                             updatePlayerTotal();
-                            endGameCheck();
+                            checkLose();
+                            checkWin();
                         }
                     } // end else for Dollar Status
                 }
@@ -243,12 +246,16 @@ public class GameScreen extends AppCompatActivity {
                     case 1:
                         dealCardsP3();
                         updatePlayerTotal();
-                        endGameCheck();
+                        checkBlackJack(); // TODO: check win
+                        checkBust();
+                        checkLose();
                         break;
                     case 2:
                         dealCardsP4();
                         updatePlayerTotal();
-                        endGameCheck();
+                        checkBlackJack(); // TODO: check win
+                        checkBust();
+                        checkLose();
                         break;
                 }// end switch
             }// end onclick Hit
@@ -280,7 +287,7 @@ public class GameScreen extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
-    public void endGameCheck()  {
+    public void checkBlackJack(){
         if (playerTotalInt == 21) {
             // says blackjack if you get 21
             ImageView winDisplay = new ImageView(getApplicationContext());
@@ -290,10 +297,8 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(winDisplay);
             toast.show();
             // add delay
-
             // Add Winnings to Bank
             addWinnings2Bank();
-
             gameDone();
             // display win message
         }// end if win
@@ -305,10 +310,33 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-
             gameDone();
-
         }// end if lose
+    }// end check black jack
+    public void checkBust(){
+        if (dealerTotalInt > 21) {
+            //win
+            ImageView winDisplay = new ImageView(getApplicationContext());
+            winDisplay.setImageResource(R.drawable.youwin); //  TODO: CHANGE THIS PICTURE
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(winDisplay);
+            toast.show();
+            // add Winnings to Bank
+            addWinnings2Bank();
+            gameDone();
+        }// end if bust
+        if (playerTotalInt > 21){
+            dealCardsD2();
+            ImageView loseDisplay = new ImageView(getApplicationContext());
+            loseDisplay.setImageResource(R.drawable.lose); //  TODO: CHANGE THIS PICTURE
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(loseDisplay);
+            toast.show();
+        }// end if bust
+    } // end check bust
+    public void checkWin(){
         if (playerTotalInt > dealerTotalInt && playerTotalInt <= 21) {
             // win
             ImageView winDisplay = new ImageView(getApplicationContext());
@@ -321,8 +349,10 @@ public class GameScreen extends AppCompatActivity {
             // Add Winnings to Bank
             addWinnings2Bank();
             gameDone();
-
         }// end if win
+
+    }// end check win
+    public void checkLose()  {
         if (dealerTotalInt > playerTotalInt && dealerTotalInt <= 21) {
             //lose
             ImageView loseDisplay = new ImageView(getApplicationContext());
@@ -331,30 +361,10 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-
             gameDone();
-
         }// end if lose
-        if (dealerTotalInt > 21) {
-            //win
-            ImageView winDisplay = new ImageView(getApplicationContext());
-            winDisplay.setImageResource(R.drawable.youwin); //  TODO: CHANGE THIS PICTURE
-            Toast toast = new Toast(getApplicationContext());
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(winDisplay);
-            toast.show();
-
-            // add Winnings to Bank
-            addWinnings2Bank();
-            gameDone();
-
-        }// end if win
-
-        // probally remove this
         updatePlayerTotal();
-    }// end endGameCheck
-
-
+    }// end checkLose
 
     //method to deal cards
     public void dealCardD1() {
