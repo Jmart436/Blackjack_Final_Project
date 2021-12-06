@@ -222,16 +222,20 @@
                 android:layout_marginEnd="10dp"
                 android:textSize="12sp"
                 android:text="@string/hit"/>
-            <Button
-                android:id="@+id/split_button"
-                android:backgroundTint="@color/grey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"
-                android:textSize="12sp"
-                android:text="@string/split"/>
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/reset_game_button"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="65dp"
+        android:gravity="center"
+        android:textColor="@color/grey"
+        android:foregroundGravity="center"
+        android:layout_marginStart="140dp"
+        android:text="@string/reset_game"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
