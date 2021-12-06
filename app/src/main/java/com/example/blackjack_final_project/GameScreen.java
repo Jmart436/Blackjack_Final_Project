@@ -101,14 +101,10 @@ public class GameScreen extends AppCompatActivity {
     public static int dollarBank;
     public static int euroBank;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamescreen_layout);
-
-
 
         dealerTotal = (TextView) findViewById(R.id.dealer_total_textview);
         playerTotal = (TextView) findViewById(R.id.user_total_textview);
@@ -439,11 +435,8 @@ public class GameScreen extends AppCompatActivity {
         });
 
     }// end on create
-
-    //saving state when rotated
-
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("dealerTotalInt", dealerTotalInt);
         savedInstanceState.putInt("playerTotalInt", playerTotalInt);
@@ -465,10 +458,10 @@ public class GameScreen extends AppCompatActivity {
         savedInstanceState.putString("betTextview", betTextView.getText().toString());
         savedInstanceState.putString("dealerTotal", dealerTotal.getText().toString());
         savedInstanceState.putString("playerTotal", playerTotal.getText().toString());
-
     }// end save state
 
     // restore state
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -491,8 +484,12 @@ public class GameScreen extends AppCompatActivity {
         betTextView.setText(savedInstanceState.getString("betTextView"));
         dealerTotal.setText(savedInstanceState.getString("dealerTotal"));
         playerTotal.setText(savedInstanceState.getString("playerTotal"));
-
     }// end restore state
+    //saving state when rotated
+
+
+
+
 
         // Seekbar for customizing bets
     public OnSeekBarChangeListener betSeekbarListener = new OnSeekBarChangeListener() {
