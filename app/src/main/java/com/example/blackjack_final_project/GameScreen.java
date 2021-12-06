@@ -145,64 +145,72 @@ public class GameScreen extends AppCompatActivity {
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Integer.parseInt(bankAmountTotalString) != 0) {
 
-                // Subtract customBet from Bank
-                if (Euro == true) { // If Euros
-                    bankAmountEuro = bankAmountEuro - customBet;
-                } else { // If Dollars
-                    bankAmountDollarTotal = bankAmountDollarTotal - customBet;
+                    // Subtract customBet from Bank
+                    if (Euro == true) { // If Euros
+                        bankAmountEuro = bankAmountEuro - customBet;
+                    } else { // If Dollars
+                        bankAmountDollarTotal = bankAmountDollarTotal - customBet;
+                    }
+                    updateBank();
+                    playCounter += 1; // adds one to play counter
+
+                    // P1
+                    final Handler handler = new Handler(Looper.getMainLooper());
+                    dealCardsP1();
+                    // card sound
+                    card.start();
+
+
+                    // P2
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dealCardsP2();
+                            // card sound
+                            card.start();
+                        }
+                    }, 500);
+
+                    // D1
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dealCardD1();
+                            // card sound
+                            card.start();
+                        }
+                    }, 1000);
+
+
+                    //D2
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dealerCard2.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
+                            // card sound
+                            card.start();
+                        }
+                    }, 1500);
+
+
+                    dealButton.setVisibility(View.INVISIBLE); // removed deal button
+                    betSeekbar.setVisibility(View.INVISIBLE); // removes bet seekbar
+                    seekBarTextView.setVisibility(View.INVISIBLE); // removes "place your bet" text
+                    // Turns Stand, Double, Hit, and Split Visible
+                    standButton.setVisibility(View.VISIBLE);
+                    doubleButton.setVisibility(View.VISIBLE);
+                    hitButton.setVisibility(View.VISIBLE);
+                    checkBlackJack();
                 }
-                updateBank();
-                playCounter += 1; // adds one to play counter
-
-                // P1
-                final Handler handler = new Handler(Looper.getMainLooper());
-                dealCardsP1();
-                // card sound
-                card.start();
-
-
-                // P2
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dealCardsP2();
-                        // card sound
-                        card.start();
-                    }
-                }, 500);
-
-                // D1
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dealCardD1();
-                        // card sound
-                        card.start();
-                    }
-                }, 1000);
-
-
-                //D2
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dealerCard2.setImageResource(R.drawable.cardback);// sets dealer card to the back of the card
-                        // card sound
-                        card.start();
-                    }
-                }, 1500);
-
-
-
-                dealButton.setVisibility(View.INVISIBLE); // removed deal button
-                betSeekbar.setVisibility(View.INVISIBLE); // removes bet seekbar
-                seekBarTextView.setVisibility(View.INVISIBLE); // removes "place your bet" text
-                // Turns Stand, Double, Hit, and Split Visible
-                standButton.setVisibility(View.VISIBLE);
-                doubleButton.setVisibility(View.VISIBLE);
-                hitButton.setVisibility(View.VISIBLE);
-                checkBlackJack();
+                else{
+                    Context context = getApplicationContext();
+                    int duration = Toast.LENGTH_SHORT; // sets length for toast
+                    Toast toast = Toast.makeText(context, "Please add funds to your bank to play", duration); //sets content for toast
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
+                    toast.show();
+                }
             }// end on click of deal button
         });// end override
 
@@ -216,7 +224,7 @@ public class GameScreen extends AppCompatActivity {
                 // For Sound
                 card.start();
                 // D3
-                if (dealerTotalInt < 17) {
+                if (dealerTotalInt < 17 && dealerCardCounter == 2) {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -228,7 +236,35 @@ public class GameScreen extends AppCompatActivity {
                     }, 500);
 
                 } // end if less than 17
+                else{
 
+                }
+
+                if (dealerTotalInt < 17 && dealerCardCounter == 3) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dealCardsD4();
+                            adjustAces();
+                            // card sound
+                            card.start();
+                        }
+                    }, 500);
+
+                } // end if less than 17
+
+                if (dealerTotalInt < 17 && dealerCardCounter == 4) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dealCardsD5();
+                            adjustAces();
+                            // card sound
+                            card.start();
+                        }
+                    }, 500);
+
+                } // end if less than 17
                     checkLose();
                     checkWin();
                     checkPush();
@@ -376,11 +412,47 @@ public class GameScreen extends AppCompatActivity {
     //saving state when rotated
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-
+        savedInstanceState.putInt("dealerTotalInt", dealerTotalInt);
+        savedInstanceState.putInt("playerTotalInt", playerTotalInt);
+        savedInstanceState.putInt("cardValue",cardValue);
+        savedInstanceState.putInt("cardValueD2", cardValueD2);
+        savedInstanceState.putInt("cardValueD3", cardValueD3);
+        savedInstanceState.putInt("cardValueD4", cardValueD4);
+        savedInstanceState.putInt("cardValueD5", cardValueD5);
+        savedInstanceState.putInt("cardValueP1", cardValueP1);
+        savedInstanceState.putInt("cardValueP2", cardValueP2);
+        savedInstanceState.putInt("cardValueP3", cardValueP3);
+        savedInstanceState.putInt("cardValueP4", cardValueP4);
+        savedInstanceState.putInt("cardValueP5", cardValueP5);
+       savedInstanceState.putInt("hitButtonClickCounter", hitButtonClickCounter);
+       savedInstanceState.putInt("doubleButtonCounter", doubleButtonCounter);
+       savedInstanceState.putInt("playCounter", playCounter);
+       savedInstanceState.putInt("customBet", customBet);
+       savedInstanceState.putString("suitConversion", suitConversion);
+       savedInstanceState.putString("betTextview", betTextView.getText().toString());
+       savedInstanceState.putString("dealerTotal", dealerTotal.getText().toString());
+       savedInstanceState.putString("playerTotal", playerTotal.getText().toString());
     }// end save state
 
     // restore state
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.getInt("dealerTotalInt");
+        savedInstanceState.getInt("playerTotalInt");
+        savedInstanceState.getInt("cardValue");
+        savedInstanceState.getInt("cardValueD2");
+        savedInstanceState.getInt("cardValueD3");
+        savedInstanceState.getInt("cardValueD4");
+        savedInstanceState.getInt("cardValueD5");
+        savedInstanceState.getInt("cardValueP1");
+        savedInstanceState.getInt("cardValueP2");
+        savedInstanceState.getInt("cardValueP3");
+        savedInstanceState.getInt("cardValueP4");
+        savedInstanceState.getInt("cardValueP5");
+        savedInstanceState.getInt("hitButtonClickCounter");
+        savedInstanceState.getInt("doubleButtonCounter");
+        savedInstanceState.getInt("playCounter");
+        savedInstanceState.getInt("customBet");
 
     }// end restore state
 
@@ -395,6 +467,7 @@ public class GameScreen extends AppCompatActivity {
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
+
         }
 
         @Override
@@ -511,6 +584,7 @@ public class GameScreen extends AppCompatActivity {
             standButton.setVisibility(View.INVISIBLE);
             doubleButton.setVisibility(View.INVISIBLE);
             hitButton.setVisibility(View.INVISIBLE);
+            updateBank();
             // TODO: create new winnings variable
 
         }// end if win
@@ -537,6 +611,8 @@ public class GameScreen extends AppCompatActivity {
             standButton.setVisibility(View.INVISIBLE);
             doubleButton.setVisibility(View.INVISIBLE);
             hitButton.setVisibility(View.INVISIBLE);
+            updateBank();
+
 
         }// end if lose
 
@@ -651,6 +727,7 @@ public class GameScreen extends AppCompatActivity {
 
 
         // Checks to see if D4 needs to be drawn
+        /*
         if (dealerTotalInt < 17) {
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
@@ -664,6 +741,8 @@ public class GameScreen extends AppCompatActivity {
             }, 500);
         }
 
+
+         */
     }// end deal cards D3
 
     // D4
