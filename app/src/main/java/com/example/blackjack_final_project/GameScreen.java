@@ -199,9 +199,9 @@ public class GameScreen extends AppCompatActivity {
                         @Override
                         public void run() {
                             dealCardsD3();
+                            adjustAces();
                         }
                     }, 500);
-
 
 
                 } // end if less than 17
@@ -299,6 +299,7 @@ public class GameScreen extends AppCompatActivity {
                     case 1:
                         dealCardsP3();
                         generateTotals();
+                        adjustAces();
                         checkBlackJack(); // TODO: check win
                         checkBust();
                         checkLose();
@@ -306,6 +307,7 @@ public class GameScreen extends AppCompatActivity {
                     case 2:
                         dealCardsP4();
                         generateTotals();
+                        adjustAces();
                         checkBlackJack(); // TODO: check win
                         checkBust();
                         checkLose();
@@ -551,7 +553,7 @@ public class GameScreen extends AppCompatActivity {
         changeThisName = suitConversion + cardValueD3;
         dealerCard3.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName()));
         generateTotals();
-
+        adjustAces();
         checkLose();
         checkWin();
         checkBust();
@@ -748,27 +750,53 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
-    // Aces
-    public void Aces(){
-        if (playerTotalInt > 21){
-            // P1
-            if (cardValueP1 == 11){
+    // Adjusts Ace values as needed
+    public void adjustAces() {
+        // Players
+        if (playerTotalInt > 21) {
+            if (cardValueP1 == 11) { // P1
                 cardValueP1 = 1;
-                generateTotals();
+                updatePlayerTotalLabel();
+            }
+            if (cardValueP2 == 11) { // P2
+                cardValueP2 = 1;
+                updatePlayerTotalLabel();
+            }
+            if (cardValueP3 == 11) { // P3
+                cardValueP3 = 1;
+                updatePlayerTotalLabel();
+            }
+            if (cardValueP4 == 11) { // P4
+                cardValueP4 = 1;
+                updatePlayerTotalLabel();
             }
         }
-    }
+        if (dealerTotalInt > 21) {
+            if (cardValue == 11) { // P1
+                cardValue = 1;
+                updateDealerTotalLabel();
+            }
+            if (cardValueD2 == 11) { // P1
+                cardValueD2 = 1;
+                updateDealerTotalLabel();
+            }
+            if (cardValueD3 == 11) { // P1
+                cardValueD3 = 1;
+                updateDealerTotalLabel();
+            }
+            if (cardValueD4 == 11) { // P1
+                cardValueD4 = 1;
+                updateDealerTotalLabel();
+            }
+        }
+    } // End Aces
 
     // Updates Player Total
     public void generateTotals() {
         // for Player
         switch (cardValueP1) {
             case 1: // Ace
-                if (playerTotalInt > 21) {
-                    cardValueP1 = 1;
-                } else {
-                    cardValueP1 = 11;
-                }
+                cardValueP1 = 11;
                 break;
             case 10:
             case 11:
@@ -780,11 +808,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         switch (cardValueP2) {
             case 1: // Ace
-                if (playerTotalInt > 21) {
-                    cardValueP2 = 1;
-                } else {
-                    cardValueP2 = 11;
-                }
+                cardValueP2 = 11;
                 break;
             case 10:
             case 11:
@@ -796,11 +820,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         switch (cardValueP3) {
             case 1: // Ace
-                if (playerTotalInt > 21) {
-                    cardValueP3 = 1;
-                } else {
-                    cardValueP3 = 11;
-                }
+                cardValueP3 = 11;
                 break;
             case 10:
             case 11:
@@ -812,11 +832,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         switch (cardValueP4) {
             case 1: // Ace
-                if (playerTotalInt > 21) {
-                    cardValueP4 = 1;
-                } else {
-                    cardValueP4 = 11;
-                }
+                cardValueP4 = 11;
                 break;
             case 10:
             case 11:
@@ -833,11 +849,7 @@ public class GameScreen extends AppCompatActivity {
         // For Dealer
         switch (cardValue) {
             case 1: // Ace
-                if (dealerTotalInt > 21) {
-                    cardValue = 1;
-                } else {
-                    cardValue = 11;
-                }
+                cardValue = 11;
                 break;
             case 10:
             case 11:
@@ -849,11 +861,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         switch (cardValueD2) {
             case 1: // Ace
-                if (dealerTotalInt > 21) {
-                    cardValueD2 = 1;
-                } else {
-                    cardValueD2 = 11;
-                }
+                cardValueD2 = 11;
                 break;
             case 10:
             case 11:
@@ -865,11 +873,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         switch (cardValueD3) {
             case 1: // Ace
-                if (dealerTotalInt > 21) {
-                    cardValueD3 = 1;
-                } else {
-                    cardValueD3 = 11;
-                }
+                cardValueD3 = 11;
                 break;
             case 10:
             case 11:
@@ -881,11 +885,7 @@ public class GameScreen extends AppCompatActivity {
         }// end switch
         switch (cardValueD4) {
             case 1: // Ace
-                if (dealerTotalInt > 21) {
-                    cardValueD4 = 1;
-                } else {
-                    cardValueD4 = 11;
-                }
+                cardValueD4 = 11;
                 break;
             case 10:
             case 11:
@@ -983,15 +983,15 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
-    public void updatePlayerTotalLabel(){
+    public void updatePlayerTotalLabel() {
         playerTotalInt = cardValueP1 + cardValueP2 + cardValueP3 + cardValueP4;
         playerTotal.setText("Total: " + String.valueOf(playerTotalInt));
     }
+
     public void updateDealerTotalLabel() {
         dealerTotalInt = cardValue + cardValueD2 + cardValueD3 + cardValueD4;
         dealerTotal.setText("Total: " + String.valueOf(dealerTotalInt));
     }
-
 
 
 }// end class game screen
