@@ -70,14 +70,14 @@ public class GameScreen extends AppCompatActivity {
     public ImageView playerCard4;
     public ImageView cardBack;
     public String bankAmountTotalString = MainActivity.bankAmountTotalString;
-    // current bet total used for calculations w/ default value of 25
-    public int customBet = 25;
+    public int customBet = 25; // current bet total used for calculations w/ default value of 25
 
     //public static int bankAmountTotalInt;// = MainActivity.bankAmountTotalInt;
     public int dealerCardCounter;
     public int playerCardCounter;
 
     public int hitButtonClickCounter;
+    public int doubleButtonCounter;
 
     // For displaying Euros and Dollars in bank
     public boolean Euro = CurrencyExchange.Euro;
@@ -128,7 +128,7 @@ public class GameScreen extends AppCompatActivity {
         betSeekbar.setMax(Integer.parseInt(bankAmountTotalString));
 
 
-        // Player clicks Deal Button
+        // DEAL
         dealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +162,7 @@ public class GameScreen extends AppCompatActivity {
             }// end on click of deal button
         });// end override
 
+        // STAND
         standButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +173,7 @@ public class GameScreen extends AppCompatActivity {
             }// end on click
         });
 
-        // Player clicks Double Button
+        // DOUBLE
         doubleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,14 +200,24 @@ public class GameScreen extends AppCompatActivity {
                             toast.show();
                         }
                         else{
-                            // Subtract additional customBet from Bank
-                            bankAmountEuro = bankAmountEuro - customBet;
-                            customBet = customBet * 2;
-                            updateBank();
-                            updateBet();
-                            dealCardsP3();
-                            updatePlayerTotal();
-                            endGameCheck();
+                            // Player can only double once
+                            if (doubleButtonCounter == 0) {
+                                // Subtract additional customBet from Bank
+                                doubleButtonCounter = 1;
+                                bankAmountEuro = bankAmountEuro - customBet;
+                                customBet = customBet * 2;
+                                updateBank();
+                                updateBet();
+                            }
+
+                            else{
+                                // Sends toast informing player they can only double once
+                                Context context = getApplicationContext();
+                                int duration = Toast.LENGTH_SHORT; // sets length for toast
+                                Toast toast = Toast.makeText(context, "You can only double once.", duration); //sets content for toast
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
+                                toast.show();
+                            }
                         }
                     } // end if for Euro status
                     // If Dollar Status
@@ -220,14 +231,23 @@ public class GameScreen extends AppCompatActivity {
                             toast.show();
                         }
                         else{
-                            // Subtract additional customBet from Bank
-                            bankAmountDollarTotal = bankAmountDollarTotal - customBet;
-                            customBet = customBet * 2;
-                            updateBank();
-                            updateBet();
-                            dealCardsP3();
-                            updatePlayerTotal();
-                            endGameCheck();
+                            // Player can only double once
+                            if (doubleButtonCounter == 0){
+                                // Subtract additional customBet from Bank
+                                doubleButtonCounter = 1;
+                                bankAmountDollarTotal = bankAmountDollarTotal - customBet;
+                                customBet = customBet * 2;
+                                updateBank();
+                                updateBet();
+                            }
+                            else{
+                                // Sends toast informing player they can only double once
+                                Context context = getApplicationContext();
+                                int duration = Toast.LENGTH_SHORT; // sets length for toast
+                                Toast toast = Toast.makeText(context, "You can only double once.", duration); //sets content for toast
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
+                                toast.show();
+                            }
                         }
                     } // end else for Dollar Status
                 }
@@ -235,6 +255,7 @@ public class GameScreen extends AppCompatActivity {
             } // end on click double
         });// end Override
 
+        // HIT
         hitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -254,6 +275,7 @@ public class GameScreen extends AppCompatActivity {
             }// end onclick Hit
         });
 
+        // ENDGAME
         endGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -266,7 +288,7 @@ public class GameScreen extends AppCompatActivity {
 
     }// end on create
 
-
+    // Seekbar for customizing bets
     public OnSeekBarChangeListener betSeekbarListener = new OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -280,6 +302,8 @@ public class GameScreen extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
+
+    // Checks for Win
     public void endGameCheck()  {
         if (playerTotalInt == 21) {
             // says blackjack if you get 21
@@ -581,6 +605,8 @@ public class GameScreen extends AppCompatActivity {
         playerCard4.setImageResource(getResources().getIdentifier(changeThisName, "drawable", getPackageName())); // sets image for dealer card 1
     }// end deal cards P4
 
+
+    // Updates Bet
     public void updateBet(){// updates current bet amount
         if (Euro == true){
             betTextView.setText("Bet: €" + customBet);
@@ -590,6 +616,8 @@ public class GameScreen extends AppCompatActivity {
         }
 
     }
+
+    // Updates Player Total
     public void updatePlayerTotal(){ // updates total of cards on the table
         switch (cardValueP1){
             case 10:
@@ -634,17 +662,28 @@ public class GameScreen extends AppCompatActivity {
         dealerTotal.setVisibility(View.VISIBLE);
         playerTotal.setVisibility(View.VISIBLE);
     }// end updatePlayerTotal
+
+    // Resets Card Counters, Player Bet, and Double Button Counter
     public void endGame(){
         playerCardCounter = 0;
         dealerCardCounter = 0;
+        customBet = 0;
+        doubleButtonCounter = 0;
     }
+
+    // Removes all cards from table\
     public void gameDone(){
         playerCard1.setImageDrawable(null);
         playerCard2.setImageDrawable(null);
         playerCard3.setImageDrawable(null);
         playerCard4.setImageDrawable(null);
-        customBet = 0;
+        dealerCard1.setImageDrawable(null);
+        dealerCard2.setImageDrawable(null);
+        dealerCard3.setImageDrawable(null);
+        dealerCard4.setImageDrawable(null);
     }
+
+
     public void dealersTurn(){
         if (dealerTotalInt < 17) {
                 dealCardsD3();
@@ -687,7 +726,6 @@ public class GameScreen extends AppCompatActivity {
         }
         customBet = 0;
     }
-
 
 
 }// end class game screen
