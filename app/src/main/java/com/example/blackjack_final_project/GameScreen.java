@@ -886,19 +886,6 @@ public class GameScreen extends AppCompatActivity {
         playerTotal.setVisibility(View.VISIBLE);
     }// end updatePlayerTotal
 
-    // Removes all cards from table\
-    public void gameDone() {
-        playerCard1.setImageDrawable(null);
-        playerCard2.setImageDrawable(null);
-        playerCard3.setImageDrawable(null);
-        playerCard4.setImageDrawable(null);
-        dealerCard1.setImageDrawable(null);
-        dealerCard2.setImageDrawable(null);
-        dealerCard3.setImageDrawable(null);
-        dealerCard4.setImageDrawable(null);
-    }
-
-
     // Updates and Displays Bank TextView
     public void updateBank() {
         // If Euros
