@@ -837,7 +837,7 @@ public class GameScreen extends AppCompatActivity {
         }
     } // End Aces
 
-
+    // generateP1
     public void generateP1(){
         // P1
         switch (cardValueP1) {
