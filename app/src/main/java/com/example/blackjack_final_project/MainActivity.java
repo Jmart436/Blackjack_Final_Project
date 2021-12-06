@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     public static int bankAmountTotalInt = 0; // Total Bank Amount in Dollars
     public int bankAmountEuro = CurrencyExchange.bankAmountEuro; // Total Bank Amount in Euros
 
+
+    // for updated bank after playing game
+    public int gameScreenDollars;
+    public int gameScreenEuros;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +82,37 @@ public class MainActivity extends AppCompatActivity {
             bankAmountTotalString = "0";
         }
 
+        // Testing out bank transfer from Gamescreen
+        gameScreenDollars = GameScreen.dollarBank;
+        gameScreenEuros = GameScreen.euroBank;
+
+
         // Displays bank amount in Euros or Dollars depending on status from CurrencyExchange
         if(Euro == true){
-            bankAmountTotalString = String.valueOf(bankAmountEuro);
-            bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+            // havnt played yet
+            if(gameScreenEuros == 0){
+                bankAmountTotalString = String.valueOf(bankAmountEuro);
+                bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+            }
+            // already played, returning from game screen
+            else{
+                bankAmountTotalString = String.valueOf(gameScreenEuros);
+                bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+            }
         }
+        // if dollars
         else{
-            bankAmountTotalString = String.valueOf(bankAmountTotalInt);
-            bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+            // havn't played yet
+            if (gameScreenDollars == 0){
+                bankAmountTotalString = String.valueOf(bankAmountTotalInt);
+                bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+            }
+            // already played, returning from game screen
+            else{
+                bankAmountTotalString = String.valueOf(gameScreenDollars);
+                bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+            }
+
         }
 
         // Check Box Button to deposit money into bank

@@ -25,6 +25,9 @@ public class CurrencyExchange extends AppCompatActivity {
     public Button convertButton;
     public TextView bankAmountTextView;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

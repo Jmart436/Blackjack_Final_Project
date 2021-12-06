@@ -96,10 +96,18 @@ public class GameScreen extends AppCompatActivity {
     public int bankAmountDollarTotal = MainActivity.bankAmountTotalInt;
 
 
+    // For displaying updated bank
+    public static int dollarBank;
+    public static int euroBank;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamescreen_layout);
+
+
 
         dealerTotal = (TextView) findViewById(R.id.dealer_total_textview);
         playerTotal = (TextView) findViewById(R.id.user_total_textview);
@@ -1250,12 +1258,21 @@ public class GameScreen extends AppCompatActivity {
             bankAmountEuro = bankAmountEuro + customBet * 2;
             bankAmountTotalString = String.valueOf(bankAmountEuro);
             bankAmountTextView.setText("Bank : €" + bankAmountTotalString);
+
+            // for displaying updated bank
+            euroBank = bankAmountEuro;
+
         }
         // If Dollars
         else {
             bankAmountDollarTotal = bankAmountDollarTotal + customBet * 2;
             bankAmountTotalString = String.valueOf(bankAmountDollarTotal);
             bankAmountTextView.setText("Bank : $" + bankAmountTotalString);
+
+            // for displaying updated bank
+            dollarBank = bankAmountDollarTotal;
+
+
         }
         //customBet = 0;
     }// end addWinnings to function
