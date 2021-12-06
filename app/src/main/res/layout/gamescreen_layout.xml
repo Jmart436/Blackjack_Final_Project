@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/table_background">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="730dp">
     <LinearLayout
         android:id="@+id/gamescreen_header_layout"
         android:layout_width="match_parent"
@@ -216,26 +220,26 @@
                 android:id="@+id/hit_button"
                 android:backgroundTint="@color/grey"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
                 android:textSize="12sp"
                 android:text="@string/hit"/>
-
     </LinearLayout>
-
     <Button
         android:id="@+id/reset_game_button"
-        android:layout_width="130dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="65dp"
-        android:gravity="center"
-        android:textColor="@color/grey"
-        android:foregroundGravity="center"
         android:layout_marginStart="140dp"
+        android:layout_marginEnd="140dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="55dp"
+        android:gravity="center"
+        android:backgroundTint="@color/grey"
+        android:foregroundGravity="center"
         android:text="@string/reset_game"
         android:visibility="invisible"/>
 
 </RelativeLayout>
+</ScrollView>

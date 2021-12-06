@@ -172,7 +172,6 @@ public class GameScreen extends AppCompatActivity {
                     }
                 }, 1500);
 
-
                 generateTotals(); // updates player totals
                 dealButton.setVisibility(View.INVISIBLE); // removed deal button
                 betSeekbar.setVisibility(View.INVISIBLE); // removes bet seekbar
@@ -204,6 +203,9 @@ public class GameScreen extends AppCompatActivity {
 
 
                 } // end if less than 17
+                checkLose();
+                checkWin();
+
 
 
             }// end on click
@@ -281,10 +283,10 @@ public class GameScreen extends AppCompatActivity {
                                 Toast toast = Toast.makeText(context, "You can only double once.", duration); //sets content for toast
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 10, 0);// tells you where you want the toast to be displayed
                                 toast.show();
-                            }
-                        }
+                            }// end else
+                        }// end else
                     } // end else for Dollar Status
-                }
+                }// end else
 
             } // end on click double
         });// end Override
@@ -318,6 +320,7 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resetGame();
+                // end game method too
                 Intent intent = new Intent(GameScreen.this, MainActivity.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_main);
@@ -361,13 +364,10 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(winDisplay);
             toast.show();
             // add delay
-
             // Add Winnings to Bank
             addWinnings2Bank();
             dealCardsD2();
             resetButton.setVisibility(View.VISIBLE);
-
-            //gameDone();
             // display win message
         }// end if win
         if (dealerTotalInt == 21) {
@@ -379,8 +379,6 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(loseDisplay);
             toast.show();
             resetButton.setVisibility(View.VISIBLE);
-
-            //gameDone();
         }// end if lose
     }// end check black jack
 
@@ -396,7 +394,6 @@ public class GameScreen extends AppCompatActivity {
             // add Winnings to Bank
             addWinnings2Bank();
             resetButton.setVisibility(View.VISIBLE);
-            //gameDone();
         }// end if bust
         if (playerTotalInt > 21) {
             dealCardsD2();
@@ -407,7 +404,6 @@ public class GameScreen extends AppCompatActivity {
             toast.setView(loseDisplay);
             toast.show();
             resetButton.setVisibility(View.VISIBLE);
-
         }// end if bust
     } // end check bust
 
@@ -422,7 +418,6 @@ public class GameScreen extends AppCompatActivity {
             toast.show();
             // Add Winnings to Bank
             addWinnings2Bank();
-            //gameDone();
             resetButton.setVisibility(View.VISIBLE);
 
             // TODO: create new winnings variable
@@ -441,7 +436,6 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(loseDisplay);
             toast.show();
-            //gameDone();
             resetButton.setVisibility(View.VISIBLE);
 
         }// end if lose
@@ -458,11 +452,11 @@ public class GameScreen extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(pushDisplay);
             toast.show();
-
-            // gameDone();
-
-        }
-    }
+            // Add Winnings to Bank
+            addWinnings2Bank();
+            resetButton.setVisibility(View.VISIBLE);
+        }// end if push
+    }// end check push
 
 
     // D1
